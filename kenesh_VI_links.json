@@ -1,0 +1,984 @@
+{
+    "archived_urls": [
+        {
+            "url": "https://web.archive.org/web/20160617175705/http://kenesh.kg:80/ru/deputy/list/35",
+            "date": "2016-06-17",
+            "timestamp": "20160617175705"
+        },
+        {
+            "url": "https://web.archive.org/web/20160818202518/http://www.kenesh.kg:80/ru/deputy/list/35",
+            "date": "2016-08-18",
+            "timestamp": "20160818202518"
+        },
+        {
+            "url": "https://web.archive.org/web/20160827094849/http://www.kenesh.kg/ru/deputy/list/35",
+            "date": "2016-08-27",
+            "timestamp": "20160827094849"
+        },
+        {
+            "url": "https://web.archive.org/web/20160910143750/http://kenesh.kg:80/ru/deputy/list/35",
+            "date": "2016-09-10",
+            "timestamp": "20160910143750"
+        },
+        {
+            "url": "https://web.archive.org/web/20161012022622/http://kenesh.kg:80/ru/deputy/list/35",
+            "date": "2016-10-12",
+            "timestamp": "20161012022622"
+        },
+        {
+            "url": "https://web.archive.org/web/20161103121004/http://kenesh.kg:80/ru/deputy/list/35",
+            "date": "2016-11-03",
+            "timestamp": "20161103121004"
+        },
+        {
+            "url": "https://web.archive.org/web/20161117213551/http://kenesh.kg:80/ru/deputy/list/35",
+            "date": "2016-11-17",
+            "timestamp": "20161117213551"
+        },
+        {
+            "url": "https://web.archive.org/web/20161119012342/http://kenesh.kg:80/ru/deputy/list/35",
+            "date": "2016-11-19",
+            "timestamp": "20161119012342"
+        },
+        {
+            "url": "https://web.archive.org/web/20161119044356/http://www.kenesh.kg:80/ru/deputy/list/35",
+            "date": "2016-11-19",
+            "timestamp": "20161119044356"
+        },
+        {
+            "url": "https://web.archive.org/web/20170211121339/http://kenesh.kg/ru/deputy/list/35",
+            "date": "2017-02-11",
+            "timestamp": "20170211121339"
+        },
+        {
+            "url": "https://web.archive.org/web/20170323173055/http://kenesh.kg/ru/deputy/list/35",
+            "date": "2017-03-23",
+            "timestamp": "20170323173055"
+        },
+        {
+            "url": "https://web.archive.org/web/20170506143506/http://kenesh.kg:80/ru/deputy/list/35",
+            "date": "2017-05-06",
+            "timestamp": "20170506143506"
+        },
+        {
+            "url": "https://web.archive.org/web/20170506201940/http://www.kenesh.kg:80/ru/deputy/list/35",
+            "date": "2017-05-06",
+            "timestamp": "20170506201940"
+        },
+        {
+            "url": "https://web.archive.org/web/20170519114934/http://www.kenesh.kg:80/ru/deputy/list/35",
+            "date": "2017-05-19",
+            "timestamp": "20170519114934"
+        },
+        {
+            "url": "https://web.archive.org/web/20170525083001/http://kenesh.kg:80/ru/deputy/list/35",
+            "date": "2017-05-25",
+            "timestamp": "20170525083001"
+        },
+        {
+            "url": "https://web.archive.org/web/20170602020448/http://www.kenesh.kg:80/ru/deputy/list/35",
+            "date": "2017-06-02",
+            "timestamp": "20170602020448"
+        },
+        {
+            "url": "https://web.archive.org/web/20170611193626/http://www.kenesh.kg:80/ru/deputy/list/35",
+            "date": "2017-06-11",
+            "timestamp": "20170611193626"
+        },
+        {
+            "url": "https://web.archive.org/web/20170613205531/http://www.kenesh.kg:80/ru/deputy/list/35",
+            "date": "2017-06-13",
+            "timestamp": "20170613205531"
+        },
+        {
+            "url": "https://web.archive.org/web/20170615015212/http://kenesh.kg/ru/deputy/list/35",
+            "date": "2017-06-15",
+            "timestamp": "20170615015212"
+        },
+        {
+            "url": "https://web.archive.org/web/20170615054622/http://www.kenesh.kg:80/ru/deputy/list/35",
+            "date": "2017-06-15",
+            "timestamp": "20170615054622"
+        },
+        {
+            "url": "https://web.archive.org/web/20170617015707/http://kenesh.kg:80/ru/deputy/list/35",
+            "date": "2017-06-17",
+            "timestamp": "20170617015707"
+        },
+        {
+            "url": "https://web.archive.org/web/20170629142812/http://www.kenesh.kg:80/ru/deputy/list/35",
+            "date": "2017-06-29",
+            "timestamp": "20170629142812"
+        },
+        {
+            "url": "https://web.archive.org/web/20170702062626/http://kenesh.kg:80/ru/deputy/list/35",
+            "date": "2017-07-02",
+            "timestamp": "20170702062626"
+        },
+        {
+            "url": "https://web.archive.org/web/20170715134147/http://www.kenesh.kg:80/ru/deputy/list/35",
+            "date": "2017-07-15",
+            "timestamp": "20170715134147"
+        },
+        {
+            "url": "https://web.archive.org/web/20170728042906/http://www.kenesh.kg:80/ru/deputy/list/35",
+            "date": "2017-07-28",
+            "timestamp": "20170728042906"
+        },
+        {
+            "url": "https://web.archive.org/web/20170801052145/http://kenesh.kg:80/ru/deputy/list/35",
+            "date": "2017-08-01",
+            "timestamp": "20170801052145"
+        },
+        {
+            "url": "https://web.archive.org/web/20170803022625/http://kenesh.kg:80/ru/deputy/list/35",
+            "date": "2017-08-03",
+            "timestamp": "20170803022625"
+        },
+        {
+            "url": "https://web.archive.org/web/20170811112655/http://www.kenesh.kg:80/ru/deputy/list/35",
+            "date": "2017-08-11",
+            "timestamp": "20170811112655"
+        },
+        {
+            "url": "https://web.archive.org/web/20170815180909/http://kenesh.kg:80/ru/deputy/list/35",
+            "date": "2017-08-15",
+            "timestamp": "20170815180909"
+        },
+        {
+            "url": "https://web.archive.org/web/20170824154046/http://www.kenesh.kg:80/ru/deputy/list/35",
+            "date": "2017-08-24",
+            "timestamp": "20170824154046"
+        },
+        {
+            "url": "https://web.archive.org/web/20170826125237/http://www.kenesh.kg:80/ru/deputy/list/35",
+            "date": "2017-08-26",
+            "timestamp": "20170826125237"
+        },
+        {
+            "url": "https://web.archive.org/web/20170827045337/http://www.kenesh.kg:80/ru/deputy/list/35",
+            "date": "2017-08-27",
+            "timestamp": "20170827045337"
+        },
+        {
+            "url": "https://web.archive.org/web/20170914074357/http://www.kenesh.kg:80/ru/deputy/list/35",
+            "date": "2017-09-14",
+            "timestamp": "20170914074357"
+        },
+        {
+            "url": "https://web.archive.org/web/20170915153333/http://kenesh.kg:80/ru/deputy/list/35",
+            "date": "2017-09-15",
+            "timestamp": "20170915153333"
+        },
+        {
+            "url": "https://web.archive.org/web/20170921045335/http://kenesh.kg:80/ru/deputy/list/35",
+            "date": "2017-09-21",
+            "timestamp": "20170921045335"
+        },
+        {
+            "url": "https://web.archive.org/web/20171001052559/http://www.kenesh.kg:80/ru/deputy/list/35",
+            "date": "2017-10-01",
+            "timestamp": "20171001052559"
+        },
+        {
+            "url": "https://web.archive.org/web/20171017041722/http://kenesh.kg:80/ru/deputy/list/35",
+            "date": "2017-10-17",
+            "timestamp": "20171017041722"
+        },
+        {
+            "url": "https://web.archive.org/web/20171020190704/http://www.kenesh.kg/ru/deputy/list/35",
+            "date": "2017-10-20",
+            "timestamp": "20171020190704"
+        },
+        {
+            "url": "https://web.archive.org/web/20171025064440/http://www.kenesh.kg:80/ru/deputy/list/35",
+            "date": "2017-10-25",
+            "timestamp": "20171025064440"
+        },
+        {
+            "url": "https://web.archive.org/web/20171105062338/http://kenesh.kg:80/ru/deputy/list/35",
+            "date": "2017-11-05",
+            "timestamp": "20171105062338"
+        },
+        {
+            "url": "https://web.archive.org/web/20171114181353/http://www.kenesh.kg:80/ru/deputy/list/35",
+            "date": "2017-11-14",
+            "timestamp": "20171114181353"
+        },
+        {
+            "url": "https://web.archive.org/web/20171124171854/http://www.kenesh.kg:80/ru/deputy/list/35",
+            "date": "2017-11-24",
+            "timestamp": "20171124171854"
+        },
+        {
+            "url": "https://web.archive.org/web/20171205234817/http://kenesh.kg:80/ru/deputy/list/35",
+            "date": "2017-12-05",
+            "timestamp": "20171205234817"
+        },
+        {
+            "url": "https://web.archive.org/web/20171210142337/http://www.kenesh.kg:80/ru/deputy/list/35",
+            "date": "2017-12-10",
+            "timestamp": "20171210142337"
+        },
+        {
+            "url": "https://web.archive.org/web/20171225210403/http://www.kenesh.kg:80/ru/deputy/list/35",
+            "date": "2017-12-25",
+            "timestamp": "20171225210403"
+        },
+        {
+            "url": "https://web.archive.org/web/20180105235314/http://kenesh.kg:80/ru/deputy/list/35",
+            "date": "2018-01-05",
+            "timestamp": "20180105235314"
+        },
+        {
+            "url": "https://web.archive.org/web/20180107114746/http://www.kenesh.kg:80/ru/deputy/list/35",
+            "date": "2018-01-07",
+            "timestamp": "20180107114746"
+        },
+        {
+            "url": "https://web.archive.org/web/20180119135317/http://www.kenesh.kg:80/ru/deputy/list/35",
+            "date": "2018-01-19",
+            "timestamp": "20180119135317"
+        },
+        {
+            "url": "https://web.archive.org/web/20180201020211/http://www.kenesh.kg:80/ru/deputy/list/35",
+            "date": "2018-02-01",
+            "timestamp": "20180201020211"
+        },
+        {
+            "url": "https://web.archive.org/web/20180205122601/http://kenesh.kg:80/ru/deputy/list/35",
+            "date": "2018-02-05",
+            "timestamp": "20180205122601"
+        },
+        {
+            "url": "https://web.archive.org/web/20180212155252/http://www.kenesh.kg:80/ru/deputy/list/35",
+            "date": "2018-02-12",
+            "timestamp": "20180212155252"
+        },
+        {
+            "url": "https://web.archive.org/web/20180220043305/http://kenesh.kg:80/ru/deputy/list/35",
+            "date": "2018-02-20",
+            "timestamp": "20180220043305"
+        },
+        {
+            "url": "https://web.archive.org/web/20180222213142/http://www.kenesh.kg:80/ru/deputy/list/35",
+            "date": "2018-02-22",
+            "timestamp": "20180222213142"
+        },
+        {
+            "url": "https://web.archive.org/web/20180303143222/http://www.kenesh.kg:80/ru/deputy/list/35",
+            "date": "2018-03-03",
+            "timestamp": "20180303143222"
+        },
+        {
+            "url": "https://web.archive.org/web/20180304070003/http://kenesh.kg:80/ru/deputy/list/35",
+            "date": "2018-03-04",
+            "timestamp": "20180304070003"
+        },
+        {
+            "url": "https://web.archive.org/web/20180311115232/http://www.kenesh.kg:80/ru/deputy/list/35",
+            "date": "2018-03-11",
+            "timestamp": "20180311115232"
+        },
+        {
+            "url": "https://web.archive.org/web/20180314140028/http://kenesh.kg:80/ru/deputy/list/35",
+            "date": "2018-03-14",
+            "timestamp": "20180314140028"
+        },
+        {
+            "url": "https://web.archive.org/web/20180319155252/http://www.kenesh.kg:80/ru/deputy/list/35",
+            "date": "2018-03-19",
+            "timestamp": "20180319155252"
+        },
+        {
+            "url": "https://web.archive.org/web/20180323084113/http://kenesh.kg:80/ru/deputy/list/35",
+            "date": "2018-03-23",
+            "timestamp": "20180323084113"
+        },
+        {
+            "url": "https://web.archive.org/web/20180327174056/http://www.kenesh.kg:80/ru/deputy/list/35",
+            "date": "2018-03-27",
+            "timestamp": "20180327174056"
+        },
+        {
+            "url": "https://web.archive.org/web/20180401144409/http://kenesh.kg:80/ru/deputy/list/35",
+            "date": "2018-04-01",
+            "timestamp": "20180401144409"
+        },
+        {
+            "url": "https://web.archive.org/web/20180404122918/http://www.kenesh.kg:80/ru/deputy/list/35",
+            "date": "2018-04-04",
+            "timestamp": "20180404122918"
+        },
+        {
+            "url": "https://web.archive.org/web/20180410170939/http://kenesh.kg:80/ru/deputy/list/35",
+            "date": "2018-04-10",
+            "timestamp": "20180410170939"
+        },
+        {
+            "url": "https://web.archive.org/web/20180412164049/http://www.kenesh.kg:80/ru/deputy/list/35",
+            "date": "2018-04-12",
+            "timestamp": "20180412164049"
+        },
+        {
+            "url": "https://web.archive.org/web/20180419195827/http://kenesh.kg:80/ru/deputy/list/35",
+            "date": "2018-04-19",
+            "timestamp": "20180419195827"
+        },
+        {
+            "url": "https://web.archive.org/web/20180422053853/http://www.kenesh.kg:80/ru/deputy/list/35",
+            "date": "2018-04-22",
+            "timestamp": "20180422053853"
+        },
+        {
+            "url": "https://web.archive.org/web/20180428165339/http://kenesh.kg:80/ru/deputy/list/35",
+            "date": "2018-04-28",
+            "timestamp": "20180428165339"
+        },
+        {
+            "url": "https://web.archive.org/web/20180430123725/http://www.kenesh.kg:80/ru/deputy/list/35",
+            "date": "2018-04-30",
+            "timestamp": "20180430123725"
+        },
+        {
+            "url": "https://web.archive.org/web/20180507080702/http://kenesh.kg:80/ru/deputy/list/35",
+            "date": "2018-05-07",
+            "timestamp": "20180507080702"
+        },
+        {
+            "url": "https://web.archive.org/web/20180508194127/http://www.kenesh.kg:80/ru/deputy/list/35",
+            "date": "2018-05-08",
+            "timestamp": "20180508194127"
+        },
+        {
+            "url": "https://web.archive.org/web/20180515071532/http://kenesh.kg:80/ru/deputy/list/35",
+            "date": "2018-05-15",
+            "timestamp": "20180515071532"
+        },
+        {
+            "url": "https://web.archive.org/web/20180522151113/http://kenesh.kg:80/ru/deputy/list/35",
+            "date": "2018-05-22",
+            "timestamp": "20180522151113"
+        },
+        {
+            "url": "https://web.archive.org/web/20180529203451/http://www.kenesh.kg:80/ru/deputy/list/35",
+            "date": "2018-05-29",
+            "timestamp": "20180529203451"
+        },
+        {
+            "url": "https://web.archive.org/web/20180529203633/http://kenesh.kg:80/ru/deputy/list/35",
+            "date": "2018-05-29",
+            "timestamp": "20180529203633"
+        },
+        {
+            "url": "https://web.archive.org/web/20180604193206/http://kenesh.kg:80/ru/deputy/list/35",
+            "date": "2018-06-04",
+            "timestamp": "20180604193206"
+        },
+        {
+            "url": "https://web.archive.org/web/20180608155222/http://www.kenesh.kg:80/ru/deputy/list/35",
+            "date": "2018-06-08",
+            "timestamp": "20180608155222"
+        },
+        {
+            "url": "https://web.archive.org/web/20180611094857/http://kenesh.kg:80/ru/deputy/list/35",
+            "date": "2018-06-11",
+            "timestamp": "20180611094857"
+        },
+        {
+            "url": "https://web.archive.org/web/20180617133747/http://www.kenesh.kg:80/ru/deputy/list/35",
+            "date": "2018-06-17",
+            "timestamp": "20180617133747"
+        },
+        {
+            "url": "https://web.archive.org/web/20180618042241/http://kenesh.kg:80/ru/deputy/list/35",
+            "date": "2018-06-18",
+            "timestamp": "20180618042241"
+        },
+        {
+            "url": "https://web.archive.org/web/20180624050911/http://www.kenesh.kg:80/ru/deputy/list/35",
+            "date": "2018-06-24",
+            "timestamp": "20180624050911"
+        },
+        {
+            "url": "https://web.archive.org/web/20180625234920/http://kenesh.kg:80/ru/deputy/list/35",
+            "date": "2018-06-25",
+            "timestamp": "20180625234920"
+        },
+        {
+            "url": "https://web.archive.org/web/20180629045709/http://www.kenesh.kg:80/ru/deputy/list/35",
+            "date": "2018-06-29",
+            "timestamp": "20180629045709"
+        },
+        {
+            "url": "https://web.archive.org/web/20180704171935/http://kenesh.kg:80/ru/deputy/list/35",
+            "date": "2018-07-04",
+            "timestamp": "20180704171935"
+        },
+        {
+            "url": "https://web.archive.org/web/20180704174200/http://www.kenesh.kg:80/ru/deputy/list/35",
+            "date": "2018-07-04",
+            "timestamp": "20180704174200"
+        },
+        {
+            "url": "https://web.archive.org/web/20180710180816/http://www.kenesh.kg:80/ru/deputy/list/35",
+            "date": "2018-07-10",
+            "timestamp": "20180710180816"
+        },
+        {
+            "url": "https://web.archive.org/web/20180715023243/http://kenesh.kg:80/ru/deputy/list/35",
+            "date": "2018-07-15",
+            "timestamp": "20180715023243"
+        },
+        {
+            "url": "https://web.archive.org/web/20180717122305/http://www.kenesh.kg:80/ru/deputy/list/35",
+            "date": "2018-07-17",
+            "timestamp": "20180717122305"
+        },
+        {
+            "url": "https://web.archive.org/web/20180718191727/http://www.kenesh.kg:80/ru/deputy/list/35",
+            "date": "2018-07-18",
+            "timestamp": "20180718191727"
+        },
+        {
+            "url": "https://web.archive.org/web/20180726203147/http://www.kenesh.kg:80/ru/deputy/list/35",
+            "date": "2018-07-26",
+            "timestamp": "20180726203147"
+        },
+        {
+            "url": "https://web.archive.org/web/20180728060024/http://kenesh.kg:80/ru/deputy/list/35",
+            "date": "2018-07-28",
+            "timestamp": "20180728060024"
+        },
+        {
+            "url": "https://web.archive.org/web/20180807035101/http://www.kenesh.kg:80/ru/deputy/list/35",
+            "date": "2018-08-07",
+            "timestamp": "20180807035101"
+        },
+        {
+            "url": "https://web.archive.org/web/20180813073433/http://kenesh.kg:80/ru/deputy/list/35",
+            "date": "2018-08-13",
+            "timestamp": "20180813073433"
+        },
+        {
+            "url": "https://web.archive.org/web/20180821083647/http://www.kenesh.kg:80/ru/deputy/list/35",
+            "date": "2018-08-21",
+            "timestamp": "20180821083647"
+        },
+        {
+            "url": "https://web.archive.org/web/20180902220213/http://kenesh.kg:80/ru/deputy/list/35",
+            "date": "2018-09-02",
+            "timestamp": "20180902220213"
+        },
+        {
+            "url": "https://web.archive.org/web/20180903140941/http://www.kenesh.kg:80/ru/deputy/list/35",
+            "date": "2018-09-03",
+            "timestamp": "20180903140941"
+        },
+        {
+            "url": "https://web.archive.org/web/20180917094541/http://kenesh.kg:80/ru/deputy/list/35",
+            "date": "2018-09-17",
+            "timestamp": "20180917094541"
+        },
+        {
+            "url": "https://web.archive.org/web/20180917101827/http://www.kenesh.kg:80/ru/deputy/list/35",
+            "date": "2018-09-17",
+            "timestamp": "20180917101827"
+        },
+        {
+            "url": "https://web.archive.org/web/20180927125746/http://www.kenesh.kg:80/ru/deputy/list/35",
+            "date": "2018-09-27",
+            "timestamp": "20180927125746"
+        },
+        {
+            "url": "https://web.archive.org/web/20180928055844/http://kenesh.kg:80/ru/deputy/list/35",
+            "date": "2018-09-28",
+            "timestamp": "20180928055844"
+        },
+        {
+            "url": "https://web.archive.org/web/20181007100155/http://kenesh.kg:80/ru/deputy/list/35",
+            "date": "2018-10-07",
+            "timestamp": "20181007100155"
+        },
+        {
+            "url": "https://web.archive.org/web/20181008175156/http://www.kenesh.kg:80/ru/deputy/list/35",
+            "date": "2018-10-08",
+            "timestamp": "20181008175156"
+        },
+        {
+            "url": "https://web.archive.org/web/20181016120539/http://kenesh.kg:80/ru/deputy/list/35",
+            "date": "2018-10-16",
+            "timestamp": "20181016120539"
+        },
+        {
+            "url": "https://web.archive.org/web/20181019070628/http://www.kenesh.kg:80/ru/deputy/list/35",
+            "date": "2018-10-19",
+            "timestamp": "20181019070628"
+        },
+        {
+            "url": "https://web.archive.org/web/20181025012710/http://www.kenesh.kg:80/ru/deputy/list/35",
+            "date": "2018-10-25",
+            "timestamp": "20181025012710"
+        },
+        {
+            "url": "https://web.archive.org/web/20181025141810/http://kenesh.kg:80/ru/deputy/list/35",
+            "date": "2018-10-25",
+            "timestamp": "20181025141810"
+        },
+        {
+            "url": "https://web.archive.org/web/20181031105301/http://www.kenesh.kg:80/ru/deputy/list/35",
+            "date": "2018-10-31",
+            "timestamp": "20181031105301"
+        },
+        {
+            "url": "https://web.archive.org/web/20181102141155/http://kenesh.kg:80/ru/deputy/list/35",
+            "date": "2018-11-02",
+            "timestamp": "20181102141155"
+        },
+        {
+            "url": "https://web.archive.org/web/20181106074725/http://www.kenesh.kg:80/ru/deputy/list/35",
+            "date": "2018-11-06",
+            "timestamp": "20181106074725"
+        },
+        {
+            "url": "https://web.archive.org/web/20181112052946/http://kenesh.kg:80/ru/deputy/list/35",
+            "date": "2018-11-12",
+            "timestamp": "20181112052946"
+        },
+        {
+            "url": "https://web.archive.org/web/20181112153832/http://www.kenesh.kg:80/ru/deputy/list/35",
+            "date": "2018-11-12",
+            "timestamp": "20181112153832"
+        },
+        {
+            "url": "https://web.archive.org/web/20181120124814/http://www.kenesh.kg:80/ru/deputy/list/35",
+            "date": "2018-11-20",
+            "timestamp": "20181120124814"
+        },
+        {
+            "url": "https://web.archive.org/web/20181121034607/http://kenesh.kg:80/ru/deputy/list/35",
+            "date": "2018-11-21",
+            "timestamp": "20181121034607"
+        },
+        {
+            "url": "https://web.archive.org/web/20181128195533/http://www.kenesh.kg:80/ru/deputy/list/35",
+            "date": "2018-11-28",
+            "timestamp": "20181128195533"
+        },
+        {
+            "url": "https://web.archive.org/web/20181129073250/http://kenesh.kg:80/ru/deputy/list/35",
+            "date": "2018-11-29",
+            "timestamp": "20181129073250"
+        },
+        {
+            "url": "https://web.archive.org/web/20181206004048/http://www.kenesh.kg:80/ru/deputy/list/35",
+            "date": "2018-12-06",
+            "timestamp": "20181206004048"
+        },
+        {
+            "url": "https://web.archive.org/web/20181207191312/http://kenesh.kg:80/ru/deputy/list/35",
+            "date": "2018-12-07",
+            "timestamp": "20181207191312"
+        },
+        {
+            "url": "https://web.archive.org/web/20181213181153/http://www.kenesh.kg:80/ru/deputy/list/35",
+            "date": "2018-12-13",
+            "timestamp": "20181213181153"
+        },
+        {
+            "url": "https://web.archive.org/web/20181217112156/http://kenesh.kg:80/ru/deputy/list/35",
+            "date": "2018-12-17",
+            "timestamp": "20181217112156"
+        },
+        {
+            "url": "https://web.archive.org/web/20181222104134/http://www.kenesh.kg:80/ru/deputy/list/35",
+            "date": "2018-12-22",
+            "timestamp": "20181222104134"
+        },
+        {
+            "url": "https://web.archive.org/web/20181225233637/http://kenesh.kg:80/ru/deputy/list/35",
+            "date": "2018-12-25",
+            "timestamp": "20181225233637"
+        },
+        {
+            "url": "https://web.archive.org/web/20181229230649/http://www.kenesh.kg:80/ru/deputy/list/35",
+            "date": "2018-12-29",
+            "timestamp": "20181229230649"
+        },
+        {
+            "url": "https://web.archive.org/web/20190102204030/http://kenesh.kg:80/ru/deputy/list/35",
+            "date": "2019-01-02",
+            "timestamp": "20190102204030"
+        },
+        {
+            "url": "https://web.archive.org/web/20190107210142/http://www.kenesh.kg:80/ru/deputy/list/35",
+            "date": "2019-01-07",
+            "timestamp": "20190107210142"
+        },
+        {
+            "url": "https://web.archive.org/web/20190113015134/http://kenesh.kg:80/ru/deputy/list/35",
+            "date": "2019-01-13",
+            "timestamp": "20190113015134"
+        },
+        {
+            "url": "https://web.archive.org/web/20190117002634/http://www.kenesh.kg:80/ru/deputy/list/35",
+            "date": "2019-01-17",
+            "timestamp": "20190117002634"
+        },
+        {
+            "url": "https://web.archive.org/web/20190120213917/http://kenesh.kg:80/ru/deputy/list/35",
+            "date": "2019-01-20",
+            "timestamp": "20190120213917"
+        },
+        {
+            "url": "https://web.archive.org/web/20190125144858/http://www.kenesh.kg:80/ru/deputy/list/35",
+            "date": "2019-01-25",
+            "timestamp": "20190125144858"
+        },
+        {
+            "url": "https://web.archive.org/web/20190128073129/http://kenesh.kg:80/ru/deputy/list/35",
+            "date": "2019-01-28",
+            "timestamp": "20190128073129"
+        },
+        {
+            "url": "https://web.archive.org/web/20190201055836/http://www.kenesh.kg:80/ru/deputy/list/35",
+            "date": "2019-02-01",
+            "timestamp": "20190201055836"
+        },
+        {
+            "url": "https://web.archive.org/web/20190204024321/http://kenesh.kg:80/ru/deputy/list/35",
+            "date": "2019-02-04",
+            "timestamp": "20190204024321"
+        },
+        {
+            "url": "https://web.archive.org/web/20190208050857/http://www.kenesh.kg:80/ru/deputy/list/35",
+            "date": "2019-02-08",
+            "timestamp": "20190208050857"
+        },
+        {
+            "url": "https://web.archive.org/web/20190211011130/http://kenesh.kg:80/ru/deputy/list/35",
+            "date": "2019-02-11",
+            "timestamp": "20190211011130"
+        },
+        {
+            "url": "https://web.archive.org/web/20190216043110/http://www.kenesh.kg:80/ru/deputy/list/35",
+            "date": "2019-02-16",
+            "timestamp": "20190216043110"
+        },
+        {
+            "url": "https://web.archive.org/web/20190216043811/http://kenesh.kg:80/ru/deputy/list/35",
+            "date": "2019-02-16",
+            "timestamp": "20190216043811"
+        },
+        {
+            "url": "https://web.archive.org/web/20190222102116/http://kenesh.kg:80/ru/deputy/list/35",
+            "date": "2019-02-22",
+            "timestamp": "20190222102116"
+        },
+        {
+            "url": "https://web.archive.org/web/20190224142543/http://www.kenesh.kg:80/ru/deputy/list/35",
+            "date": "2019-02-24",
+            "timestamp": "20190224142543"
+        },
+        {
+            "url": "https://web.archive.org/web/20190301201252/http://kenesh.kg:80/ru/deputy/list/35",
+            "date": "2019-03-01",
+            "timestamp": "20190301201252"
+        },
+        {
+            "url": "https://web.archive.org/web/20190304152523/http://www.kenesh.kg:80/ru/deputy/list/35",
+            "date": "2019-03-04",
+            "timestamp": "20190304152523"
+        },
+        {
+            "url": "https://web.archive.org/web/20190307155646/http://kenesh.kg:80/ru/deputy/list/35",
+            "date": "2019-03-07",
+            "timestamp": "20190307155646"
+        },
+        {
+            "url": "https://web.archive.org/web/20190312225638/http://www.kenesh.kg:80/ru/deputy/list/35",
+            "date": "2019-03-12",
+            "timestamp": "20190312225638"
+        },
+        {
+            "url": "https://web.archive.org/web/20190314041136/http://kenesh.kg:80/ru/deputy/list/35",
+            "date": "2019-03-14",
+            "timestamp": "20190314041136"
+        },
+        {
+            "url": "https://web.archive.org/web/20190320232558/http://kenesh.kg:80/ru/deputy/list/35",
+            "date": "2019-03-20",
+            "timestamp": "20190320232558"
+        },
+        {
+            "url": "https://web.archive.org/web/20190322020255/http://www.kenesh.kg:80/ru/deputy/list/35",
+            "date": "2019-03-22",
+            "timestamp": "20190322020255"
+        },
+        {
+            "url": "https://web.archive.org/web/20190323160411/http://www.kenesh.kg/ru/deputy/list/35",
+            "date": "2019-03-23",
+            "timestamp": "20190323160411"
+        },
+        {
+            "url": "https://web.archive.org/web/20190328120259/http://kenesh.kg:80/ru/deputy/list/35",
+            "date": "2019-03-28",
+            "timestamp": "20190328120259"
+        },
+        {
+            "url": "https://web.archive.org/web/20190331024315/http://www.kenesh.kg:80/ru/deputy/list/35",
+            "date": "2019-03-31",
+            "timestamp": "20190331024315"
+        },
+        {
+            "url": "https://web.archive.org/web/20190407043900/http://kenesh.kg:80/ru/deputy/list/35",
+            "date": "2019-04-07",
+            "timestamp": "20190407043900"
+        },
+        {
+            "url": "https://web.archive.org/web/20190408135052/http://www.kenesh.kg:80/ru/deputy/list/35",
+            "date": "2019-04-08",
+            "timestamp": "20190408135052"
+        },
+        {
+            "url": "https://web.archive.org/web/20190414090740/http://www.kenesh.kg:80/ru/deputy/list/35",
+            "date": "2019-04-14",
+            "timestamp": "20190414090740"
+        },
+        {
+            "url": "https://web.archive.org/web/20190415174227/http://kenesh.kg/ru/deputy/list/35",
+            "date": "2019-04-15",
+            "timestamp": "20190415174227"
+        },
+        {
+            "url": "https://web.archive.org/web/20190417140459/http://kenesh.kg:80/ru/deputy/list/35",
+            "date": "2019-04-17",
+            "timestamp": "20190417140459"
+        },
+        {
+            "url": "https://web.archive.org/web/20190422183838/http://www.kenesh.kg:80/ru/deputy/list/35",
+            "date": "2019-04-22",
+            "timestamp": "20190422183838"
+        },
+        {
+            "url": "https://web.archive.org/web/20190429030055/http://www.kenesh.kg:80/ru/deputy/list/35",
+            "date": "2019-04-29",
+            "timestamp": "20190429030055"
+        },
+        {
+            "url": "https://web.archive.org/web/20190430145520/http://kenesh.kg:80/ru/deputy/list/35",
+            "date": "2019-04-30",
+            "timestamp": "20190430145520"
+        },
+        {
+            "url": "https://web.archive.org/web/20190505154104/http://www.kenesh.kg:80/ru/deputy/list/35",
+            "date": "2019-05-05",
+            "timestamp": "20190505154104"
+        },
+        {
+            "url": "https://web.archive.org/web/20190513101108/http://kenesh.kg:80/ru/deputy/list/35",
+            "date": "2019-05-13",
+            "timestamp": "20190513101108"
+        },
+        {
+            "url": "https://web.archive.org/web/20190513103611/http://www.kenesh.kg:80/ru/deputy/list/35",
+            "date": "2019-05-13",
+            "timestamp": "20190513103611"
+        },
+        {
+            "url": "https://web.archive.org/web/20190522044037/http://www.kenesh.kg:80/ru/deputy/list/35",
+            "date": "2019-05-22",
+            "timestamp": "20190522044037"
+        },
+        {
+            "url": "https://web.archive.org/web/20190525145356/http://kenesh.kg:80/ru/deputy/list/35",
+            "date": "2019-05-25",
+            "timestamp": "20190525145356"
+        },
+        {
+            "url": "https://web.archive.org/web/20190530174750/http://www.kenesh.kg:80/ru/deputy/list/35",
+            "date": "2019-05-30",
+            "timestamp": "20190530174750"
+        },
+        {
+            "url": "https://web.archive.org/web/20190605062342/http://kenesh.kg:80/ru/deputy/list/35",
+            "date": "2019-06-05",
+            "timestamp": "20190605062342"
+        },
+        {
+            "url": "https://web.archive.org/web/20190607224633/http://www.kenesh.kg:80/ru/deputy/list/35",
+            "date": "2019-06-07",
+            "timestamp": "20190607224633"
+        },
+        {
+            "url": "https://web.archive.org/web/20190615072905/http://kenesh.kg:80/ru/deputy/list/35",
+            "date": "2019-06-15",
+            "timestamp": "20190615072905"
+        },
+        {
+            "url": "https://web.archive.org/web/20190616092021/http://www.kenesh.kg:80/ru/deputy/list/35",
+            "date": "2019-06-16",
+            "timestamp": "20190616092021"
+        },
+        {
+            "url": "https://web.archive.org/web/20190623220840/http://kenesh.kg:80/ru/deputy/list/35",
+            "date": "2019-06-23",
+            "timestamp": "20190623220840"
+        },
+        {
+            "url": "https://web.archive.org/web/20190625005241/http://www.kenesh.kg:80/ru/deputy/list/35",
+            "date": "2019-06-25",
+            "timestamp": "20190625005241"
+        },
+        {
+            "url": "https://web.archive.org/web/20190703175827/http://kenesh.kg:80/ru/deputy/list/35",
+            "date": "2019-07-03",
+            "timestamp": "20190703175827"
+        },
+        {
+            "url": "https://web.archive.org/web/20190703194046/http://www.kenesh.kg:80/ru/deputy/list/35",
+            "date": "2019-07-03",
+            "timestamp": "20190703194046"
+        },
+        {
+            "url": "https://web.archive.org/web/20190715034026/http://www.kenesh.kg:80/ru/deputy/list/35",
+            "date": "2019-07-15",
+            "timestamp": "20190715034026"
+        },
+        {
+            "url": "https://web.archive.org/web/20190715075542/http://kenesh.kg:80/ru/deputy/list/35",
+            "date": "2019-07-15",
+            "timestamp": "20190715075542"
+        },
+        {
+            "url": "https://web.archive.org/web/20190730143436/http://www.kenesh.kg:80/ru/deputy/list/35",
+            "date": "2019-07-30",
+            "timestamp": "20190730143436"
+        },
+        {
+            "url": "https://web.archive.org/web/20190801012651/http://kenesh.kg:80/ru/deputy/list/35",
+            "date": "2019-08-01",
+            "timestamp": "20190801012651"
+        },
+        {
+            "url": "https://web.archive.org/web/20190819045729/http://www.kenesh.kg:80/ru/deputy/list/35",
+            "date": "2019-08-19",
+            "timestamp": "20190819045729"
+        },
+        {
+            "url": "https://web.archive.org/web/20190831174046/http://kenesh.kg:80/ru/deputy/list/35",
+            "date": "2019-08-31",
+            "timestamp": "20190831174046"
+        },
+        {
+            "url": "https://web.archive.org/web/20190912231231/http://www.kenesh.kg:80/ru/deputy/list/35",
+            "date": "2019-09-12",
+            "timestamp": "20190912231231"
+        },
+        {
+            "url": "https://web.archive.org/web/20190929025219/http://www.kenesh.kg:80/ru/deputy/list/35",
+            "date": "2019-09-29",
+            "timestamp": "20190929025219"
+        },
+        {
+            "url": "https://web.archive.org/web/20191001134600/http://kenesh.kg:80/ru/deputy/list/35",
+            "date": "2019-10-01",
+            "timestamp": "20191001134600"
+        },
+        {
+            "url": "https://web.archive.org/web/20191002023815/http://www.kenesh.kg:80/ru/deputy/list/35",
+            "date": "2019-10-02",
+            "timestamp": "20191002023815"
+        },
+        {
+            "url": "https://web.archive.org/web/20191002045121/http://www.kenesh.kg:80/ru/deputy/list/35",
+            "date": "2019-10-02",
+            "timestamp": "20191002045121"
+        },
+        {
+            "url": "https://web.archive.org/web/20191002135829/http://kenesh.kg:80/ru/deputy/list/35",
+            "date": "2019-10-02",
+            "timestamp": "20191002135829"
+        },
+        {
+            "url": "https://web.archive.org/web/20191005034928/http://kenesh.kg:80/ru/deputy/list/35",
+            "date": "2019-10-05",
+            "timestamp": "20191005034928"
+        },
+        {
+            "url": "https://web.archive.org/web/20191020053958/http://www.kenesh.kg:80/ru/deputy/list/35",
+            "date": "2019-10-20",
+            "timestamp": "20191020053958"
+        },
+        {
+            "url": "https://web.archive.org/web/20191104183300/http://kenesh.kg:80/ru/deputy/list/35",
+            "date": "2019-11-04",
+            "timestamp": "20191104183300"
+        },
+        {
+            "url": "https://web.archive.org/web/20191107104537/http://www.kenesh.kg:80/ru/deputy/list/35",
+            "date": "2019-11-07",
+            "timestamp": "20191107104537"
+        },
+        {
+            "url": "https://web.archive.org/web/20191126040219/http://www.kenesh.kg/ru/deputy/list/35",
+            "date": "2019-11-26",
+            "timestamp": "20191126040219"
+        },
+        {
+            "url": "https://web.archive.org/web/20191126040228/http://www.kenesh.kg/ru/deputy/list/35",
+            "date": "2019-11-26",
+            "timestamp": "20191126040228"
+        },
+        {
+            "url": "https://web.archive.org/web/20191129113721/http://www.kenesh.kg:80/ru/deputy/list/35",
+            "date": "2019-11-29",
+            "timestamp": "20191129113721"
+        },
+        {
+            "url": "https://web.archive.org/web/20191205002759/http://kenesh.kg:80/ru/deputy/list/35",
+            "date": "2019-12-05",
+            "timestamp": "20191205002759"
+        },
+        {
+            "url": "https://web.archive.org/web/20191219091342/http://www.kenesh.kg:80/ru/deputy/list/35",
+            "date": "2019-12-19",
+            "timestamp": "20191219091342"
+        },
+        {
+            "url": "https://web.archive.org/web/20200112123141/http://www.kenesh.kg:80/ru/deputy/list/35",
+            "date": "2020-01-12",
+            "timestamp": "20200112123141"
+        },
+        {
+            "url": "https://web.archive.org/web/20200126082930/http://www.kenesh.kg:80/ru/deputy/list/35",
+            "date": "2020-01-26",
+            "timestamp": "20200126082930"
+        },
+        {
+            "url": "https://web.archive.org/web/20200203094639/http://kenesh.kg:80/ru/deputy/list/35",
+            "date": "2020-02-03",
+            "timestamp": "20200203094639"
+        },
+        {
+            "url": "https://web.archive.org/web/20200406165934/http://kenesh.kg/ru/deputy/list/35",
+            "date": "2020-04-06",
+            "timestamp": "20200406165934"
+        },
+        {
+            "url": "https://web.archive.org/web/20200608084351/http://www.kenesh.kg/ru/deputy/list/35",
+            "date": "2020-06-08",
+            "timestamp": "20200608084351"
+        },
+        {
+            "url": "https://web.archive.org/web/20200612015154/http://www.kenesh.kg/ru/deputy/list/35",
+            "date": "2020-06-12",
+            "timestamp": "20200612015154"
+        },
+        {
+            "url": "https://web.archive.org/web/20200619105643/http://www.kenesh.kg/ru/deputy/list/35",
+            "date": "2020-06-19",
+            "timestamp": "20200619105643"
+        }
+    ]
+}
