@@ -5,6 +5,8 @@ from os.path import isfile, join
 from difflib import SequenceMatcher
 import numpy as np
 import itertools
+from functools import reduce
+
 # Clean Data
 
 
@@ -133,6 +135,15 @@ def find_similar(df, col):
 
 for col in ['name']:
     print(find_similar(concatenated_df, col))
-    
 
+
+# %%
+### join dfs in one df
+dfs = [pd.read_csv('export/cleaned/' + f +'.csv').reset_index().rename(columns={'party': 'party_'+f, 'index': 'num'}) for f in paths]
+df_final = reduce(lambda left,right: pd.merge(left,right,on=['name', 'num'], how='outer'), dfs[1:])
+df_final = df_final.sort_values('name')
+#df_final['num'] += 1
+df_final.melt(id_vars=["name", "num"],
+        var_name="sozyv",
+        value_name="party").sort_values('name').dropna().to_csv('visual/data/deputs_js.csv', index=False)
 # %%
