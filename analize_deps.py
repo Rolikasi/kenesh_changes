@@ -3,8 +3,32 @@ import pandas as pd
 from os import listdir
 from os.path import isfile, join
 from difflib import SequenceMatcher
+import numpy as np
 import itertools
 # Clean Data
+
+
+##Clean tail in names of V kenesh
+name_tail_replace = {
+    'Игоря': 'Игорь',
+    'ева': 'ев',
+    'ова': 'ов',
+    'ича': 'ич',
+    r'^(\w*\s+\w*)([а])\b': r'\1',
+    r'^(\w*\s+\w*)([у])\b': r'\1а',
+    r'^(\w*\s+\w*)([я])\b': r'\1й',
+    r'^(\w*\s+\w*)([ю])\b': r'\1я',
+    'еву': 'ева',
+    'ову': 'ова',
+    'евну': 'евна',
+    'овну': 'овна',
+    'ину': 'ина',
+}
+df = pd.read_csv('2010-12_V_raw.csv')
+df.name = df.name.replace(name_tail_replace, regex=True)
+df.to_csv('export/V/2010-12.csv', index=False)
+
+##clean party and names
 party_rename = {
     'Политическая партия«Народная партия «Ак Жол»': 'Ак Жол',
     'Партия коммунистов Кыргызстана': 'Партия коммунистов Кыргызстана',
@@ -37,7 +61,7 @@ name_rename = {
     'Кудайбергенов Джаныш Камчибекович': 'Кудайбергенов Джаныш Камчыбекович',
     'Дербишева Гульнара Толубайевна': 'Дербишева Гульнара Толубаевна',
     'Жээнбеков Асилбек Шарипович': 'Жээнбеков Асылбек Шарипович',
-    'Төрөбаев Бакыт Эргешевич': 'Торобаев Бакыт Эргешевич',
+    'Төрөбаев': 'Торобаев',
     'Юсуров Абдумеджит Лелезович': 'Юсуров Абдумажит Лелезович',
     'Кодуранова Асел Союзбековна': 'Кодуранова Асель Союзбековна',
     'Жумабеков Дастанбек Артисбекович': 'Джумабеков Дастанбек Артисбекович',
@@ -53,11 +77,19 @@ name_rename = {
     'Масабиров Талайбек Айтмаматович': 'Масабиров Таалайбек Айтмаматович',
     'Турускулов Жыргалбек Күрүчбекович': 'Турускулов Жыргалбек Куручбекович',
     'Алыбаев Орозбек Артильевич' : 'Алыбаев Орозбек Артельевич',
+    'ү': 'у',
+    'ө': 'о',
+    'Ө': 'О',
+    'ң': 'н',
 }
 
 
 def clear_names(df):
-    df.name = df.name.replace(name_rename, regex=True).str.strip()
+    df.name = df.name.str.strip().replace(name_rename, regex=True)
+    try:
+        df.drop('index', 1, inplace=True)
+    except:
+        print('error')
     return df
 
 
@@ -70,17 +102,17 @@ def rename_party(df):
         return df
 
 
-csvs = []
+csvs = {}
 paths = ['III', 'IV', 'V', 'VI']
 
 
 for path in paths:
-    path = "export/" + path
-    csvs.extend([path + '/'+f for f in listdir(path) if isfile(join(path, f))])
+    full_path = "export/" + path
+    csvs.update({path:[full_path + '/'+f for f in listdir(full_path) if isfile(join(full_path, f))]})
 
-dfs = (clear_names(rename_party(pd.read_csv(f))) for f in csvs)
-concatenated_df = pd.concat(dfs, ignore_index=False)
-len(concatenated_df.name.unique())
+for csv in csvs:
+    csvs.update({csv : [clear_names(rename_party(pd.read_csv(f))) for f in csvs[csv]]})
+    pd.concat(csvs[csv]).replace('', np.nan, regex=True).dropna().drop_duplicates(ignore_index=True).to_csv('export/cleaned/' + csv + '.csv', index=False)
 
 # %%
 
@@ -101,25 +133,6 @@ def find_similar(df, col):
 
 for col in ['name']:
     print(find_similar(concatenated_df, col))
-# %%
-name_tail_replace = {
-    'Игоря': 'Игорь',
-    'ева': 'ев',
-    'ова': 'ов',
-    'ича': 'ич',
-    r'^(\w*\s+\w*)([а])\b': r'\1',
-    r'^(\w*\s+\w*)([у])\b': r'\1а',
-    r'^(\w*\s+\w*)([я])\b': r'\1й',
-    r'^(\w*\s+\w*)([ю])\b': r'\1я',
-    'еву': 'ева',
-    'ову': 'ова',
-    'евну': 'евна',
-    'овну': 'овна',
-    'ину': 'ина',
-}
-df = pd.read_csv('2010-12_V_raw.csv')
-df.name = df.name.replace(name_tail_replace, regex=True)
-df.to_csv('export/V/2010-12.csv', index=False)
-
+    
 
 # %%
