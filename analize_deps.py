@@ -7,6 +7,8 @@ import numpy as np
 import itertools
 from functools import reduce
 
+paths = ['III', 'IV', 'V', 'VI']
+#%%
 # Clean Data
 
 
@@ -101,11 +103,12 @@ def rename_party(df):
         return df
     except:
         print("error in:", df)
+        df['party'] = 'Самовыдвиженец'
         return df
 
 
 csvs = {}
-paths = ['III', 'IV', 'V', 'VI']
+
 
 
 for path in paths:
@@ -114,7 +117,7 @@ for path in paths:
 
 for csv in csvs:
     csvs.update({csv : [clear_names(rename_party(pd.read_csv(f))) for f in csvs[csv]]})
-    pd.concat(csvs[csv]).replace('', np.nan, regex=True).dropna().drop_duplicates(ignore_index=True).to_csv('export/cleaned/' + csv + '.csv', index=False)
+    pd.concat(csvs[csv]).replace('', np.nan, regex=True).dropna().sort_values('party').drop_duplicates(ignore_index=True).to_csv('export/cleaned/' + csv + '.csv', index=False)
 
 # %%
 
@@ -140,7 +143,7 @@ for col in ['name']:
 # %%
 ### join dfs in one df
 dfs = [pd.read_csv('export/cleaned/' + f +'.csv').reset_index().rename(columns={'party': 'party_'+f, 'index': 'num'}) for f in paths]
-df_final = reduce(lambda left,right: pd.merge(left,right,on=['name', 'num'], how='outer'), dfs[1:])
+df_final = reduce(lambda left,right: pd.merge(left,right,on=['name', 'num'], how='outer'), dfs)
 df_final = df_final.sort_values('name')
 #df_final['num'] += 1
 df_final.melt(id_vars=["name", "num"],
