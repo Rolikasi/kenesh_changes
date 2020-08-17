@@ -142,11 +142,35 @@ for col in ['name']:
 
 # %%
 ### join dfs in one df
+rename_cols={'party_III' : '3', 'party_IV': '4', 'party_V' : '5', 'party_VI': '6'}
 dfs = [pd.read_csv('export/cleaned/' + f +'.csv').reset_index().rename(columns={'party': 'party_'+f, 'index': 'num'}) for f in paths]
-df_final = reduce(lambda left,right: pd.merge(left,right,on=['name', 'num'], how='outer'), dfs)
-df_final = df_final.sort_values('name')
-#df_final['num'] += 1
-df_final.melt(id_vars=["name", "num"],
+df_reduced = reduce(lambda left,right: pd.merge(left,right,on=['name', 'num'], how='outer'), dfs)
+
+
+# %%
+dfs = [pd.read_csv('export/cleaned/' + f +'.csv').rename(columns={'party': 'party_'+f, 'index': 'num'}) for f in paths]
+df_finder = reduce(lambda left,right: pd.merge(left,right,on=['name'], how='outer'), dfs)
+df_finder['partyChanger'] = 0
+for idx in df_finder.index:
+    if len(set(list(df_finder.loc[idx].values))) > 4:
+        df_finder.loc[idx,'partyChanger'] = 1
+df_finder = df_finder[['name', 'partyChanger']]
+df_final = pd.merge(df_finder, df_reduced, on=['name'], how='outer')
+df_export = df_final.sort_values('name').rename(columns=rename_cols).melt(id_vars=["name", "num", 'partyChanger'],
         var_name="sozyv",
-        value_name="party").sort_values('name').dropna().to_csv('visual/data/deputs_js.csv', index=False)
+        value_name="party").sort_values('name').dropna()
+# %%
+
+
+# %%
+df_export = df_export.sort_values(['name', 'sozyv'])
+df_export.sozyv = df_export.sozyv.astype(int)
+#df_export['sozyvMisser'] = 0
+df_export['sozyvMisser'] = df_export[['name', 'sozyv']].groupby('name').diff()
+dfc = df_export.groupby('name')['sozyvMisser']
+df_export['sozyvMisser'] = dfc.transform('max')
+df_export.to_csv('visual/data/deputs_js.csv', index=False)
+# for idx in df_export.index:
+#     print
+        #df_export.loc[idx,'sozyvMisser'] = 1
 # %%
