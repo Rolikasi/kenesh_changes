@@ -9,12 +9,103 @@
         <title></title>
         <meta name="description" content="">
         <meta name="viewport" content="width=device-width, initial-scale=1">
-        <link rel="stylesheet" href="">
         <link rel="shortcut icon" href="">
         <script src="https://d3js.org/d3.v5.min.js"></script>
+        <script src="https://unpkg.com/intersection-observer"></script>
+        <script src="https://unpkg.com/scrollama"></script>
+        <style>
+            #scrolly {
+                position: relative;
+            }
+
+            article {
+                position: relative;
+                padding: 0 1rem;
+                margin: 0 auto;
+                width: 85%;
+            }
+
+            .step {
+                margin: 10rem auto 50rem auto;
+                background-color: #3b3b3b;
+                color: #fff;
+            }
+
+            .step--last {
+                margin: 10rem auto 10rem auto;
+                background-color: #3b3b3b;
+                color: #fff;
+            }
+
+            .step.is-active {
+                background-color: goldenrod;
+                color: #3b3b3b;
+            }
+
+            .step p {
+                text-align: center;
+                padding: 1rem;
+                font-size: 1.5rem;
+            }
+
+            figure {
+                position: -webkit-sticky;
+                position: sticky;
+                left: 0;
+                width: 100%;
+                margin: 0;
+                -webkit-transform: translate3d(0, 0, 0);
+                -moz-transform: translate3d(0, 0, 0);
+                transform: translate3d(0, 0, 0);
+                z-index: 0;
+            }
+
+            figure div {
+                text-align: center;
+                padding: 0;
+                position: absolute;
+                top: 50%;
+                left: 50%;
+                -moz-transform: translate(-50%, -50%);
+                -webkit-transform: translate(-50%, -50%);
+                transform: translate(-50%, -50%);
+                font-size: 2rem;
+                font-weight: 900;
+                color: #000000;
+            }
+        </style>
     </head>
     <body>
-        <div id="chart"></div>
+        <main>
+            <section id="intro">
+                <h1 class="intro__hed">Как менялся Жогорку Кенеш</h1>
+                <p class="intro__dek">
+                    Мы составили списки всех созывов
+                </p>
+            </section>
+            <section id="scrolly">
+                <figure>
+                    <div id='chart'></div>
+                </figure>
+                <article>
+                    <div class="step" data-step="1">
+                        <p>Мы составили списки всех созывов</p>
+                    </div>
+                    <div class="step" data-step="2">
+                        <p>Меняли партию</p>
+                    </div>
+                    <div class="step" data-step="3">
+                        <p>Прогульщики</p>
+                    </div>
+                    <div class="step step" data-step="4">
+                        <p>STEP 4</p>
+                    </div>
+                </article>
+            </section>
+            <section id="outro">
+                <p>Конец статьи</p>
+            </section>
+        </main>
         <!--[if lt IE 7]>
             <p class="browsehappy">You are using an <strong>outdated</strong> browser. Please <a href="#">upgrade your browser</a> to improve your experience.</p>
         <![endif]-->
