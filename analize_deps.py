@@ -8,11 +8,11 @@ import itertools
 from functools import reduce
 
 paths = ['III', 'IV', 'V', 'VI']
-#%%
+# %%
 # Clean Data
 
 
-##Clean tail in names of V kenesh
+# Clean tail in names of V kenesh
 name_tail_replace = {
     'Игоря': 'Игорь',
     'ева': 'ев',
@@ -32,7 +32,7 @@ df = pd.read_csv('2010-12_V_raw.csv')
 df.name = df.name.replace(name_tail_replace, regex=True)
 df.to_csv('export/V/2010-12.csv', index=False)
 
-##clean party and names
+# clean party and names
 party_rename = {
     'Политическая партия«Народная партия «Ак Жол»': 'Ак Жол',
     'Партия коммунистов Кыргызстана': 'Партия коммунистов Кыргызстана',
@@ -80,7 +80,7 @@ name_rename = {
     'Кадыкеев Нурланбек Кадыкеевич': 'Макеев Нурланбек Кадыкеевич',
     'Масабиров Талайбек Айтмаматович': 'Масабиров Таалайбек Айтмаматович',
     'Турускулов Жыргалбек Күрүчбекович': 'Турускулов Жыргалбек Куручбекович',
-    'Алыбаев Орозбек Артильевич' : 'Алыбаев Орозбек Артельевич',
+    'Алыбаев Орозбек Артильевич': 'Алыбаев Орозбек Артельевич',
     'ү': 'у',
     'ө': 'о',
     'Ө': 'О',
@@ -110,14 +110,16 @@ def rename_party(df):
 csvs = {}
 
 
-
 for path in paths:
     full_path = "export/" + path
-    csvs.update({path:[full_path + '/'+f for f in listdir(full_path) if isfile(join(full_path, f))]})
+    csvs.update(
+        {path: [full_path + '/'+f for f in listdir(full_path) if isfile(join(full_path, f))]})
 
 for csv in csvs:
-    csvs.update({csv : [clear_names(rename_party(pd.read_csv(f))) for f in csvs[csv]]})
-    pd.concat(csvs[csv]).replace('', np.nan, regex=True).dropna().sort_values('party').drop_duplicates(ignore_index=True).to_csv('export/cleaned/' + csv + '.csv', index=False)
+    csvs.update({csv: [clear_names(rename_party(pd.read_csv(f)))
+                       for f in csvs[csv]]})
+    pd.concat(csvs[csv]).replace('', np.nan, regex=True).dropna().sort_values(
+        'party').drop_duplicates(ignore_index=True).to_csv('export/cleaned/' + csv + '.csv', index=False)
 
 # %%
 
@@ -141,25 +143,61 @@ for col in ['name']:
 
 
 # %%
-### join dfs in one df
-rename_cols={'party_III' : '3', 'party_IV': '4', 'party_V' : '5', 'party_VI': '6'}
-dfs = [pd.read_csv('export/cleaned/' + f +'.csv').reset_index().rename(columns={'party': 'party_'+f, 'index': 'num'}) for f in paths]
-df_reduced = reduce(lambda left,right: pd.merge(left,right,on=['name', 'num'], how='outer'), dfs)
+# join dfs in one df
+def party_finder(df, party):
+    col_name = {'Самовыдвиженец': 'isIndependent',
+                'Ак Жол': 'isAkjol',
+                'СДПК': 'isSDPK',
+                'Партия коммунистов Кыргызстана': 'isCommunist',
+                'Ата Мекен': 'isAtameken',
+                'Ата-Журт': "isAtajurt",
+                'Республика': 'isRepublic',
+                'Ар-Намыс': 'isArnamys',
+                'Бир Бол': 'isBirbol',
+                'Кыргызстан': 'isKyrgyzstan',
+                'Онугуу-Прогресс': 'isOnuguu',
+                'Республика - Ата Журт': 'isRepAtajurt'}
+    df1 = df.copy()
+    df1[col_name[party]] = df1.apply(
+        lambda r: r.str.contains(party, case=False).any(), axis=1)
+    df1[col_name[party]] = df1[col_name[party]].astype(int)
+    return df1[['name', col_name[party]]]
+
+rename_cols = {'party_III': '3', 'party_IV': '4',
+               'party_V': '5', 'party_VI': '6'}
+dfs = [pd.read_csv('export/cleaned/' + f + '.csv').reset_index().rename(
+    columns={'party': 'party_'+f, 'index': 'num'}) for f in paths]
+df_reduced = reduce(lambda left, right: pd.merge(
+    left, right, on=['name', 'num'], how='outer'), dfs)
 
 
 # %%
-dfs = [pd.read_csv('export/cleaned/' + f +'.csv').rename(columns={'party': 'party_'+f, 'index': 'num'}) for f in paths]
-df_finder = reduce(lambda left,right: pd.merge(left,right,on=['name'], how='outer'), dfs)
+dfs = [pd.read_csv('export/cleaned/' + f + '.csv').rename(
+    columns={'party': 'party_'+f, 'index': 'num'}) for f in paths]
+df_finder = reduce(lambda left, right: pd.merge(
+    left, right, on=['name'], how='outer'), dfs)
 df_finder['partyChanger'] = 0
 for idx in df_finder.index:
-    if len(set(list(df_finder.loc[idx].values))) > 4:
-        df_finder.loc[idx,'partyChanger'] = 1
-df_partchange = df_finder[['name', 'partyChanger']]
-df_final = pd.merge(df_partchange, df_reduced, on=['name'], how='outer')
-df_export = df_final.sort_values('name').rename(columns=rename_cols).melt(id_vars=["name", "num", 'partyChanger'],
-        var_name="sozyv",
-        value_name="party").sort_values('name').dropna()
-# %%
+    if len(set(list(df_finder.drop('party_III', 1).loc[idx].values))) > 4:
+        df_finder.loc[idx, 'partyChanger'] = 1
+df_partychange = df_finder[['name', 'partyChanger']]
+df_finder['isFemale'] = df_finder.name.str.contains(
+    'ева|ова|евна|овна|Гульнара', regex=True)
+df_finder.isFemale = df_finder.isFemale.astype(int)
+df_female = df_finder[['name', 'isFemale']]
+dfs_export = [df_partychange, df_reduced, df_female]
+parties = list(pd.unique(
+    df_finder[['party_III', 'party_IV', 'party_V', 'party_VI']].values.ravel('K')))
+parties.remove(np.nan)
+for party in parties:
+    dfs_export.append(party_finder(df_finder, party))
+df_final = reduce(lambda left, right: pd.merge(
+    left, right, on=['name'], how='outer'), dfs_export)
+df_export = df_final.sort_values('name').rename(columns=rename_cols).melt(id_vars=['name', 'partyChanger', 'num','isFemale', 'isIndependent', 'isAkjol', 'isSDPK',
+       'isCommunist', 'isAtameken', 'isAtajurt', 'isRepublic', 'isArnamys',
+       'isBirbol', 'isKyrgyzstan', 'isOnuguu', 'isRepAtajurt'],
+                                                                          var_name="sozyv",
+                                                                          value_name="party").sort_values('name').dropna()
 
 
 # %%
@@ -169,10 +207,17 @@ df_export.sozyv = df_export.sozyv.astype(int)
 df_export['sozyvMisser'] = df_export[['name', 'sozyv']].groupby('name').diff()
 dfc = df_export.groupby('name')['sozyvMisser']
 df_export['sozyvMisser'] = dfc.transform('max')
+
 df_export.to_csv('visual/data/deputs_js.csv', index=False)
 # for idx in df_export.index:
 #     print
-        #df_export.loc[idx,'sozyvMisser'] = 1
+#df_export.loc[idx,'sozyvMisser'] = 1
 # %%
-df_finder.sort_values(['party_VI', 'party_V', 'party_IV', 'party_III']).to_csv('export/kenesh_deps.csv', index=False)
+df_finder.sort_values(['party_VI', 'party_V', 'party_IV', 'party_III']).to_csv(
+    'export/kenesh_deps.csv', index=False)
 # %%
+df_final.columns
+# %%
+
+
+
