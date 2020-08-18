@@ -154,8 +154,8 @@ df_finder['partyChanger'] = 0
 for idx in df_finder.index:
     if len(set(list(df_finder.loc[idx].values))) > 4:
         df_finder.loc[idx,'partyChanger'] = 1
-df_finder = df_finder[['name', 'partyChanger']]
-df_final = pd.merge(df_finder, df_reduced, on=['name'], how='outer')
+df_partchange = df_finder[['name', 'partyChanger']]
+df_final = pd.merge(df_partchange, df_reduced, on=['name'], how='outer')
 df_export = df_final.sort_values('name').rename(columns=rename_cols).melt(id_vars=["name", "num", 'partyChanger'],
         var_name="sozyv",
         value_name="party").sort_values('name').dropna()
@@ -173,4 +173,6 @@ df_export.to_csv('visual/data/deputs_js.csv', index=False)
 # for idx in df_export.index:
 #     print
         #df_export.loc[idx,'sozyvMisser'] = 1
+# %%
+df_finder.sort_values(['party_VI', 'party_V', 'party_IV', 'party_III']).to_csv('export/kenesh_deps.csv', index=False)
 # %%
