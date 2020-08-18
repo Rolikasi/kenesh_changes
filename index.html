@@ -2,114 +2,135 @@
 <!--[if lt IE 7]>      <html class="no-js lt-ie9 lt-ie8 lt-ie7"> <![endif]-->
 <!--[if IE 7]>         <html class="no-js lt-ie9 lt-ie8"> <![endif]-->
 <!--[if IE 8]>         <html class="no-js lt-ie9"> <![endif]-->
-<!--[if gt IE 8]><!--> <html class="no-js"> <!--<![endif]-->
-    <head>
-        <meta charset="utf-8">
-        <meta http-equiv="X-UA-Compatible" content="IE=edge">
-        <title></title>
-        <meta name="description" content="">
-        <meta name="viewport" content="width=device-width, initial-scale=1">
-        <link rel="shortcut icon" href="">
-        <script src="https://d3js.org/d3.v5.min.js"></script>
-        <script src="https://unpkg.com/intersection-observer"></script>
-        <script src="https://unpkg.com/scrollama"></script>
-        <style>
-            #scrolly {
-                position: relative;
-            }
+<!--[if gt IE 8]><!-->
+<html class="no-js">
+<!--<![endif]-->
 
-            article {
-                position: relative;
-                padding: 0 1rem;
-                margin: 0 auto;
-                width: 85%;
-            }
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <title></title>
+    <meta name="description" content="">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="shortcut icon" href="">
+    <script src="https://d3js.org/d3.v5.min.js"></script>
+    <script src="https://unpkg.com/intersection-observer"></script>
+    <script src="https://unpkg.com/scrollama"></script>
+    <script src="../stickyfill.min.js"></script>
+    <style>
+        #scrolly {
+            position: relative;
+        }
 
-            .step {
-                margin: 10rem auto 50rem auto;
-                background-color: #3b3b3b;
-                color: #fff;
-            }
+        article {
+            position: relative;
+            padding: 0 1rem;
+            margin: 0 auto;
+            width: 85%;
+        }
 
-            .step--last {
-                margin: 10rem auto 10rem auto;
-                background-color: #3b3b3b;
-                color: #fff;
-            }
+        .step {
+            margin: 10rem auto 50rem auto;
+            color: #fff;
+        }
 
-            .step.is-active {
-                background-color: goldenrod;
-                color: #3b3b3b;
-            }
+        .step:last-child {
+            margin-bottom: 0;
+        }
 
-            .step p {
-                text-align: center;
-                padding: 1rem;
-                font-size: 1.5rem;
-            }
+        .step.is-active p {
+            background-color: goldenrod;
+            color: #3b3b3b;
+        }
 
-            figure {
-                position: -webkit-sticky;
-                position: sticky;
-                left: 0;
-                width: 100%;
-                margin: 0;
-                -webkit-transform: translate3d(0, 0, 0);
-                -moz-transform: translate3d(0, 0, 0);
-                transform: translate3d(0, 0, 0);
-                z-index: 0;
-            }
+        .step p {
+            text-align: center;
+            padding: 1rem;
+            font-size: 1.5rem;
+            background-color: #3b3b3b;
+        }
 
-            figure div {
-                text-align: center;
-                padding: 0;
-                position: absolute;
-                top: 50%;
-                left: 50%;
-                -moz-transform: translate(-50%, -50%);
-                -webkit-transform: translate(-50%, -50%);
-                transform: translate(-50%, -50%);
-                font-size: 2rem;
-                font-weight: 900;
-                color: #000000;
-            }
-        </style>
-    </head>
-    <body>
-        <main>
-            <section id="intro">
-                <h1 class="intro__hed">Как менялся Жогорку Кенеш</h1>
-                <p class="intro__dek">
-                    Мы составили списки всех созывов
-                </p>
-            </section>
-            <section id="scrolly">
-                <figure>
-                    <div id='chart'></div>
-                </figure>
-                <article>
-                    <div class="step" data-step="1">
-                        <p>Мы составили списки всех созывов</p>
-                    </div>
-                    <div class="step" data-step="2">
-                        <p>Меняли партию</p>
-                    </div>
-                    <div class="step" data-step="3">
-                        <p>Прогульщики</p>
-                    </div>
-                    <div class="step step" data-step="4">
-                        <p>STEP 4</p>
-                    </div>
-                </article>
-            </section>
-            <section id="outro">
-                <p>Конец статьи</p>
-            </section>
-        </main>
-        <!--[if lt IE 7]>
+        figure {
+            position: -webkit-sticky;
+            position: sticky;
+            left: 0;
+            width: 100%;
+            margin: 0;
+            -webkit-transform: translate3d(0, 0, 0);
+            -moz-transform: translate3d(0, 0, 0);
+            transform: translate3d(0, 0, 0);
+            z-index: 0;
+        }
+
+        figure div {
+            text-align: center;
+            padding: 0;
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            -moz-transform: translate(-50%, -50%);
+            -webkit-transform: translate(-50%, -50%);
+            transform: translate(-50%, -50%);
+            font-size: 2rem;
+            font-weight: 700;
+            color: #000000;
+        }
+
+        .legend {
+            font-size: 12px;
+        }
+        .figure--index{
+            z-index: 2
+        }
+    </style>
+</head>
+
+<body>
+    <main>
+        <section id="intro">
+            <h1 class="intro__hed">Как менялся Жогорку Кенеш</h1>
+            <p class="intro__dek">
+                Мы составили списки всех созывов
+            </p>
+        </section>
+        <section id="scrolly">
+            <figure>
+                <div id='chart'></div>
+            </figure>
+            <article>
+                <div class="step" data-step="1">
+                    <p>Мы составили списки всех созывов</p>
+                </div>
+                <div class="step" data-step="2">
+                    <p>Перебезчики</p>
+                </div>
+                <div class="step" data-step="3">
+                    <p>Прогульщики</p>
+                </div>
+                <div class="step" data-step="4">
+                    <p>Депутаты, которые вернулись через 2 созыва</p>
+                </div>
+                <div class="step" data-step="5">
+                    <p>СДПК</p>
+                </div>
+                <div class="step" data-step="6">
+                    <p>Женщины парламента</p>
+                </div>
+                <div class="step step--last" data-step="7">
+                    <p>Поиск по партии</p>
+
+                </div>
+            </article>
+        </section>
+        <section id="outro">
+            <p>Конец статьи</p>
+        </section>
+    </main>
+    <!--[if lt IE 7]>
             <p class="browsehappy">You are using an <strong>outdated</strong> browser. Please <a href="#">upgrade your browser</a> to improve your experience.</p>
         <![endif]-->
 
-        <script src="chart.js" async defer></script>
-    </body>
+    <script src="chart.js" async defer></script>
+</body>
+
 </html>
