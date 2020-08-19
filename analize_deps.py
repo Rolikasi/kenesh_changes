@@ -59,6 +59,8 @@ name_rename = {
     '\\r\\n': '',
     '   ': ' ',
     '  ': ' ',
+    'Шин Роман Александрович': 'Шин Роман', # первая перезапись
+    'Шин Роман': 'Шин Роман Александрович', # вторая перезапись
     'Бабанов Өмүрбек Токтогулович': 'Бабанов Омурбек Токтогулович',
     'Нышанов Сайдулла Канболотович': 'Нышанов Сайдилла Канболотович',
     'Өмүркулов Иса Шейшенкулович': 'Омуркулов Иса Шейшенкулович',
@@ -123,23 +125,6 @@ for csv in csvs:
 
 # %%
 
-
-def similar(a, b):
-    return SequenceMatcher(None, a, b).ratio()
-
-
-def find_similar(df, col):
-    cleanedList = [x for x in df[col].unique() if str(x) != 'nan']
-    found_similar = {}
-    for name, nextname in itertools.combinations(cleanedList, 2):
-        if similar(name, nextname) > 0.8:
-            print("similar", name, 'and', nextname, similar(name, nextname))
-            found_similar.update({nextname: name})
-    return found_similar
-
-
-for col in ['name']:
-    print(find_similar(concatenated_df, col))
 
 
 # %%
@@ -216,8 +201,24 @@ df_export.to_csv('visual/data/deputs_js.csv', index=False)
 df_finder.sort_values(['party_VI', 'party_V', 'party_IV', 'party_III']).to_csv(
     'export/kenesh_deps.csv', index=False)
 # %%
-df_final.columns
+#%%
+
+
+# def similar(a, b):
+#     return SequenceMatcher(None, a, b).ratio()
+
+
+# def find_similar(df, col):
+#     cleanedList = [x for x in df[col].unique() if str(x) != 'nan']
+#     found_similar = {}
+#     for name, nextname in itertools.combinations(cleanedList, 2):
+#         if similar(name, nextname) > 0.8:
+#             print("similar", name, 'and', nextname, similar(name, nextname))
+#             found_similar.update({nextname: name})
+#     return found_similar
+
+
+# for col in ['name']:
+#     print(find_similar(concatenated_df, col))
+
 # %%
-
-
-
