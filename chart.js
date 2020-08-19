@@ -1,5 +1,6 @@
 d3.csv("data/deputs_js.csv")
   .then(function (data) {
+    const bodySel = d3.select('body')
     var main = d3.select("main");
     var scrolly = main.select("#scrolly");
     var figure = scrolly.select("figure");
@@ -7,6 +8,9 @@ d3.csv("data/deputs_js.csv")
     var step = article.selectAll(".step");
     var laststep = article.select(".step--last");
     var selected_party = null;
+    var curResponse;
+    var selectedDep = '';
+    let previousWidth = bodySel.node().offsetWidth
     const parties = [...new Set(data.map((d) => d.party))]
       .sort()
       .reverse()
@@ -20,28 +24,31 @@ d3.csv("data/deputs_js.csv")
     const uniqueSozyv = [...new Set(data.map((item) => item.sozyv))].sort(
       (a, b) => a - b
     );
+    const uniqueDeps = [...new Set(data.map((item) => item.name))].sort(
+      (a, b) => a - b
+    );
     var myColor = d3.scaleOrdinal().domain(parties).range([
-      "#00965E",
-      "#8C4799",
-      "#776E64",
-      "#D12430", //red
-      "#007DBA", // blue
-      "#FFC72C", // yellow
-      "darkgreen",
-      "pink",
-      "brown",
-      "slateblue",
-      "grey1",
-      "#FFC72C",
+      "#00965E", //maingreen
+      "#8C4799", //mainpurple
+      "#665012", //mainbrown
+      "#BDC2C6", //lightrfegray
+      "#5E2A01", //darkrfeorange
+      "#F7C39A", //lightrfeorange
+      "#D12430", //mainred
+      "#FFC72C", // mainyellow
+      "#2F1501", //blackrfeorange
+      "#5B6770", // rfegray
+      "#EA6903", //rfeorange
+      "#007DBA", // mainblue
     ]);
 
     var margin = {
       top: 25,
       right: 10,
-      bottom: 30,
-      left: 10,
+      bottom: 0,
+      left: 30,
     };
-    function DrawChart(step) {
+    function DrawChart(step, callback) {
       width = window.innerWidth - margin.left - margin.right;
       height = window.innerHeight - window.innerHeight / 10;
       rectWidth = 7;
@@ -49,8 +56,32 @@ d3.csv("data/deputs_js.csv")
       rectBtwn = rectPad - rectWidth;
       rectsInRow = Math.floor(width / (rectWidth + rectBtwn));
       rectsInCol = Math.ceil(maxDepNum / rectsInRow);
-      figure
-      .attr('class', d => {if (step == 6) {return 'figure--index'} else {return null}})
+
+      outro = main
+      .select('#outro')
+      .append('input')
+      .attr('list', 'depsList')
+      .attr('height', rectWidth * 2)
+      .attr('width', width / 2)
+      .attr('name', 'submit')
+      .attr('type', 'text')
+      .attr('placeholder', 'Введите имя депутата')
+      .attr('value', () => selectedDep != '' ? selectedDep : '')
+      .on('input', d => {selectedDep = main.select('input').property("value")
+      if (uniqueDeps.includes(selectedDep)) {
+        handleStepEnter(curResponse)
+      }
+
+    })
+    dataList = outro
+    .append('datalist')
+    .attr('id', 'depsList');
+
+    dataList.selectAll('option')
+    .data(uniqueDeps)
+    .enter()
+    .append('option')
+    .attr('value', d => d);
       var svg = d3
         .select("#chart")
         .append("svg")
@@ -60,52 +91,6 @@ d3.csv("data/deputs_js.csv")
         .attr("transform", "translate(" + margin.left + "," + margin.top + ")");
 
       console.log(data);
-      const opacityHandler = (d) => {
-        if (step == 0) {
-          return "1";
-        } else if ((step == 1) & (d.partyChanger == "1")) {
-          return "1";
-        } else if ((step == 2) & ((d.sozyvChange > 1) | (d.sozyvMisser > 1))) {
-          return "1";
-        } else if ((step == 3) & ((d.sozyvChange > 2) | (d.sozyvMisser > 2))) {
-          return "1";
-        } else if ((step == 4) & (d.isSDPK == "1")) {
-          return "1";
-        } else if ((step == 5) & (d.isFemale == "1")) {
-          return "1";
-        } else if (step == 6) {
-          switch (selected_party) {
-            case "СДПК":
-              return d.isSDPK == "1" ? "1" : "0.1";
-            case "Республика - Ата Журт":
-              return d.isRepAtajurt == "1" ? "1" : "0.1";
-            case "Бир Бол":
-              return d.isBirbol == "1" ? "1" : "0.1";
-            case "Ата-Журт":
-              return d.isAtajurt == "1" ? "1" : "0.1";
-            case "Ак Жол":
-              return d.isAkjol == "1" ? "1" : "0.1";
-            case "Онугуу-Прогресс":
-              return d.isOnuguu == "1" ? "1" : "0.1";
-            case "Ар-Намыс":
-              return d.isArnamys == "1" ? "1" : "0.1";
-            case "Партия коммунистов Кыргызстана":
-              return d.isCommunist == "1" ? "1" : "0.1";
-            case "Республика":
-              return d.isRepublic == "1" ? "1" : "0.1";
-            case "Кыргызстан":
-              return d.isKyrgyzstan == "1" ? "1" : "0.1";
-            case "Самовыдвиженец":
-              return d.isIndependent == "1" ? "1" : "0.1";
-            case "Ата Мекен":
-              return d.isAtameken == "1" ? "1" : "0.1";
-            default:
-              return "0.1";
-          }
-        } else {
-          return "0.1";
-        }
-      };
 
       const lookup = data.reduce((a, e) => {
         a[e.name] = ++a[e.name] || 0;
@@ -126,7 +111,10 @@ d3.csv("data/deputs_js.csv")
       svg
         .append("g")
         .attr("stroke-width", 0)
-        .call(d3.axisRight(y))
+        .call(d3.axisLeft(y)
+        .tickValues(uniqueSozyv)
+        .tickFormat(d => d + ' Созыв'))
+        .attr("transform", "translate( -" + rectWidth + " ,0)")
         .selectAll("text")
         .attr("transform", "rotate(-90)");
 
@@ -135,6 +123,7 @@ d3.csv("data/deputs_js.csv")
         .data(data)
         .enter()
         .append("rect")
+        .attr('class', 'chartrect')
         .attr("y", function (d) {
           curCol = Math.floor(parseInt(d.num, 10) / rectsInCol);
           curRow = Math.floor(d.num - rectsInCol * curCol);
@@ -149,8 +138,7 @@ d3.csv("data/deputs_js.csv")
         })
         .attr("width", rectWidth)
         .attr("height", rectWidth)
-        .attr("fill", (d) => myColor(d.party))
-        .attr("opacity", (d) => opacityHandler(d));
+        .attr("fill", (d) => myColor(d.party));
 
       let links = [];
 
@@ -233,6 +221,7 @@ d3.csv("data/deputs_js.csv")
         .data(links)
         .enter()
         .append("path")
+        .attr('class', 'lines')
         .attr("d", (d) => {
           if (d.sozyvChange > 1) {
             var x0 = d.source.x;
@@ -267,25 +256,20 @@ d3.csv("data/deputs_js.csv")
           }
         })
         .attr("stroke", (d) => myColor(d.party))
-        .attr("opacity", (d) => opacityHandler(d))
         .attr("fill", "none");
-      const handleLegendClick = (d) => {
-        selected_party = d;
-        handleStepEnter(curResponse);
-      };
+
       var legend = svg
         .selectAll(".legend")
         .data(parties)
         .enter()
-        .append("a")
+        .append("g")
         .attr("class", "legend")
         .attr("transform", function (d, i) {
-          var heightLegend = rectWidth + rectPad;
+          var heightLegend = rectWidth + rectPad + 3;
           var horz = width - rectWidth;
           var vert = i * heightLegend;
           return "translate(" + horz + "," + vert + ")";
-        })
-        .on("click", (d) => handleLegendClick(d));
+        });
       legend
         .append("rect")
         .attr("height", rectWidth)
@@ -293,23 +277,125 @@ d3.csv("data/deputs_js.csv")
         .attr("fill", (d) => myColor(d));
       legend
         .append("text")
-        .attr('font-weight', d => {if (d == selected_party & step == 6) {
-          return '900'}
-          else { return '100'}})
+        .attr('font-weight', '100')
         .attr("text-anchor", "end")
         .attr("x", 0 - rectBtwn)
         .attr("y", rectWidth)
         .text((d) => d);
+
+      callback();
+    }
+
+    function UpdateChart(step, svg) {
+      var form = main.select('input')
+      console.log(form)
+      const opacityHandler = (d) => {
+        if (step == 0) {
+          return "1";
+        } else if ((step == 1) & (d.partyChanger == "1")) {
+          return "1";
+        } else if ((step == 2) & ((d.sozyvChange > 1) | (d.sozyvMisser > 1))) {
+          return "1";
+        } else if ((step == 3) & ((d.sozyvChange > 2) | (d.sozyvMisser > 2))) {
+          return "1";
+        } else if ((step == 4) & (d.isSDPK == "1")) {
+          return "1";
+        } else if ((step == 5) & (d.isFemale == "1")) {
+          return "1";
+        } else if (step == 6 & selectedDep == '') {
+          switch (selected_party) {
+            case "СДПК":
+              return d.isSDPK == "1" ? "1" : "0.1";
+            case "Республика - Ата Журт":
+              return d.isRepAtajurt == "1" ? "1" : "0.1";
+            case "Бир Бол":
+              return d.isBirbol == "1" ? "1" : "0.1";
+            case "Ата-Журт":
+              return d.isAtajurt == "1" ? "1" : "0.1";
+            case "Ак Жол":
+              return d.isAkjol == "1" ? "1" : "0.1";
+            case "Онугуу-Прогресс":
+              return d.isOnuguu == "1" ? "1" : "0.1";
+            case "Ар-Намыс":
+              return d.isArnamys == "1" ? "1" : "0.1";
+            case "Партия коммунистов Кыргызстана":
+              return d.isCommunist == "1" ? "1" : "0.1";
+            case "Республика":
+              return d.isRepublic == "1" ? "1" : "0.1";
+            case "Кыргызстан":
+              return d.isKyrgyzstan == "1" ? "1" : "0.1";
+            case "Самовыдвиженец":
+              return d.isIndependent == "1" ? "1" : "0.1";
+            case "Ата Мекен":
+              return d.isAtameken == "1" ? "1" : "0.1";
+            default:
+              return "0.1";
+          }
+        } else if (step == 6 & selectedDep != '') {
+          return d.name == selectedDep ? '1': '0.1'
+        }
+         else {
+          return "0.1";
+        }
+      };
+
+      const handleLegendClick = (d) => {
+        selected_party = d.party ? d.party : d;
+        handleStepEnter(curResponse);
+      };
+
+      const handleLegendFont = (d) =>
+        {if (d == selected_party & step == 6 & selectedDep == '') {
+          return '900'}
+          else { return '100'}};
+
+      article.attr("class", (d) => {
+        if (step == 6) {
+          return "no--pointer";
+        } else {
+          return null;
+        }
+      });
+      // const handleLegendBorder = (d) =>{
+      //   return 'legend border'
+      // }
+
+      svg.selectAll(".chartrect").attr("opacity", (d) => opacityHandler(d));
+
+      svg.selectAll(".lines").attr("opacity", (d) => opacityHandler(d));
+
+svg.selectAll('.chartrect')
+.on('click', d=> handleLegendClick(d));
+
+      svg
+        .selectAll(".legend")
+        // .attr('class', d=> handleLegendBorder(d))
+        .on("click", (d) => handleLegendClick(d))
+        .selectAll('text')
+        .attr('font-weight', d => handleLegendFont(d))
     }
 
     var scroller = scrollama();
 
     function handleResize() {
+      const width = bodySel.node().offsetWidth
+      var svg = d3.select("#chart svg");
+      var input = d3.select('#outro input')
+        if (previousWidth !== width) {
+          previousWidth = width
+          input.remove()
+          svg.remove();
+          DrawChart(curResponse, function () {
+            console.log('resized', svg, curResponse)
+            svg = d3.select("#chart svg");
+            UpdateChart(curResponse.index, svg);
+          })
+	}
       // 1. update height of step elements
       var stepH = Math.floor(window.innerHeight * 0.75);
       step.style("height", stepH + "px");
-      laststep.style("height", window.innerHeight + "px");
-      var figureHeight = window.innerHeight / 2;
+      laststep.style("height", window.innerHeight * 1.5 + "px");
+      var figureHeight = window.innerHeight;
       var figureMarginTop = (window.innerHeight - figureHeight) / 2;
 
       figure
@@ -324,10 +410,16 @@ d3.csv("data/deputs_js.csv")
       // response = { element, direction, index }
       console.log(response.index);
       var svg = d3.select("#chart svg");
-      //d3.selectAll("g > *").remove()
-      DrawChart(response.index);
-      svg ? svg.remove() : null;
       curResponse = response;
+      if (svg.empty()) {
+        DrawChart(response.index, function () {
+          UpdateChart(response.index, svg)
+        });
+      } else {
+        UpdateChart(response.index, svg);
+      }
+
+
       // add to color to current step
       response.element.classList.add("is-active");
     }
@@ -346,6 +438,7 @@ d3.csv("data/deputs_js.csv")
     function init() {
       setupStickyfill();
       handleResize();
+      DrawChart(0, d => {})
       // find the halfway point of the initial viewport height
       // (it changes on mobile, but by just using the initial value
       // you remove jumpiness on scroll direction change)
