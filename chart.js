@@ -305,8 +305,10 @@ d3.csv("data/deputs_js.csv")
         d3.select(this).style("stroke", "black");
       };
       var mousemove = function (d) {
+        curParties = d.allParties.split(',').map((e,k)=> k+3 +' созыв: ' + e)
+        console.log(curParties)
         tooltip
-          .html("<p>" + d.name + "</p><p>" + d.party + "</p>")
+          .html("<p>" + d.name + "</p><p>" + curParties.filter((a, b) => a != '').map((e,k) => k+3 + ' созыв:' + e) + "</p>") //(e !=(k+3 +' созыв:' + e + '<br>' : '') ? (k+3 +' созыв:' + e + '<br>' : 0
           .style("left", d.x + "px")
           .style("top", d.y + "px");
       };
