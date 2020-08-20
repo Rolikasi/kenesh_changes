@@ -16,9 +16,10 @@
     <script src="https://unpkg.com/scrollama"></script>
     <script src="stickyfill.min.js"></script>
     <style>
-        body{
+        body {
             font-family: "Skolar Sans", Helvetica, sans-serif;
         }
+
         #scrolly {
             position: relative;
         }
@@ -28,27 +29,33 @@
             padding: 0 1rem;
             margin: 0 auto;
             width: 85%;
+            max-width: 30rem;
+            pointer-events: none;
         }
 
         .step {
-            margin: 10rem auto 50rem auto;
-            color: #fff;
+            margin: 10rem auto 20rem auto;
+            color: #444;
         }
 
         .step:last-child {
             margin-bottom: 0;
         }
 
-        .step.is-active p {
-            background-color: goldenrod;
-            color: #3b3b3b;
+        .step:first-child {
+            margin-top: 0;
         }
 
         .step p {
             text-align: center;
             padding: 1rem;
-            font-size: 1.5rem;
-            background-color: #3b3b3b;
+            font-size: 0.8rem;
+            background-color: #fff;
+            text-align: left;
+            border-radius: 5px;
+            -webkit-box-shadow: 0 3px 3px 1px rgba(0, 0, 0, .11);
+            box-shadow: 0 3px 3px 1px rgba(0, 0, 0, .11);
+            border: 1px solid #d0cccc;
         }
 
         figure {
@@ -72,7 +79,7 @@
             -moz-transform: translate(-50%, -50%);
             -webkit-transform: translate(-50%, -50%);
             transform: translate(-50%, -50%);
-            font-size: 2rem;
+            font-size: 0.8rem;
             font-weight: 700;
             color: #000000;
         }
@@ -81,21 +88,57 @@
             font-size: 12px;
             cursor: pointer;
         }
-        .no--pointer{
-            pointer-events: none
-        }
+
         #outro {
             z-index: 2
         }
 
+        .tooltip {
+            padding: 0.1rem;
+            pointer-events: none;
+            font-size: 0.5rem;
+            font-weight: 500;
+            background-color: #fff;
+            text-align: left;
+            border-radius: 5px;
+            -webkit-box-shadow: 0 3px 3px 1px rgba(0, 0, 0, .11);
+            box-shadow: 0 3px 3px 1px rgba(0, 0, 0, .11);
+            border: 1px solid #d0cccc;
+        }
 
+        .intro__hed {
+            font-size: 1.5rem;
+            font-weight: bold;
+            align-self: center;
+            justify-self: center;
+        }
+
+        .intro__dek {
+            font-size: 1rem;
+            align-self: center;
+            justify-self: center;
+        }
+
+        .logo {
+            align-self: center;
+            justify-self: center;
+        }
+
+        .intro {
+            display: flex;
+            flex-direction: column;
+        }
     </style>
 </head>
 
 <body>
     <main>
-        <section id="intro">
-            <h1 class="intro__hed">Как менялся Жогорку Кенеш</h1>
+        <section id="intro" class="intro">
+            <a class="logo" href="rus.azattyk.org">
+                <img src="https://raw.githubusercontent.com/Rolikasi/copypast_laws/master/Kyrgyz-RU_RGB_compact-brandmark.png"
+                    height='63px' width='113px'>
+            </a>
+            <h1 class="intro__hed">Как изменялся состав Жогорку Кенеша</h1>
             <p class="intro__dek">
                 Вступительный текст <br>
                 Вступительный текст <br>
@@ -108,25 +151,31 @@
             </figure>
             <article>
                 <div class="step" data-step="1">
-                    <p>Мы составили списки всех созывов</p>
+                    <p>Мы изучили составы всех созывов Жогорку Кенеша. Каждый квадрат обозначает одного депутата, а его
+                        цвет - принадлежность к партии.</p>
                 </div>
                 <div class="step" data-step="2">
-                    <p>«Перебежчики»</p>
+                    <p>«Односозывники». ...% депутатов появлялись в парламенте лишь на один созыв.</p>
                 </div>
                 <div class="step" data-step="3">
-                    <p>«Прогульщики»</p>
+                    <p>«Перебежчики». ...% депутатов меняли политические партии</p>
                 </div>
                 <div class="step" data-step="4">
-                    <p>Депутаты, которые вернулись через 2 созыва</p>
+                    <p>«Прогульщики». ...% </p>
                 </div>
                 <div class="step" data-step="5">
-                    <p>СДПК</p>
+                    <p>3 депутата вернулись в парламент через 2 созыва</p>
                 </div>
                 <div class="step" data-step="6">
-                    <p>Женщины парламента</p>
+                    <p>В парламенте третьего созыва не было женщин. А за всю историю Жогорку Кенеш не достиг квоты в 30%
+                    </p>
                 </div>
-                <div class="step step--last" data-step="7">
-                    <p>Нажмите на партию, чтобы увидеть депутатов, которые в ней состояли</p>
+                <div class="step" data-step="7">
+                    <p>СДПК</p>
+                </div>
+                <div class="step step--last" data-step="8">
+                    <p>Нажмите на партию, чтобы увидеть депутатов, которые в ней состояли. Также вы можете искать
+                        парламентариев по имени под графиком. </p>
 
                 </div>
             </article>
@@ -134,7 +183,6 @@
         <section id="outro">
         </section>
         <section id="end">
-            <p>Авторы</p>
             <p>Код + Дизайн: Эдиль Байызбеков</p>
         </section>
     </main>
