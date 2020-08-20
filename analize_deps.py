@@ -170,7 +170,9 @@ df_finder['isFemale'] = df_finder.name.str.contains(
     'ева|ова|евна|овна|Гульнара', regex=True)
 df_finder.isFemale = df_finder.isFemale.astype(int)
 df_female = df_finder[['name', 'isFemale']]
-dfs_export = [df_partychange, df_reduced, df_female]
+df_finder['allParties'] = df_finder[['party_III', 'party_IV','party_V', 'party_VI']].apply(lambda row: ','.join([x.replace('nan', '') for x in row.values.astype(str)]), axis=1)
+df_allParty = df_finder[['name', 'allParties']]
+dfs_export = [df_partychange, df_reduced, df_female, df_allParty]
 parties = list(pd.unique(
     df_finder[['party_III', 'party_IV', 'party_V', 'party_VI']].values.ravel('K')))
 parties.remove(np.nan)
@@ -180,7 +182,7 @@ df_final = reduce(lambda left, right: pd.merge(
     left, right, on=['name'], how='outer'), dfs_export)
 df_export = df_final.sort_values('name').rename(columns=rename_cols).melt(id_vars=['name', 'partyChanger', 'num','isFemale', 'isIndependent', 'isAkjol', 'isSDPK',
        'isCommunist', 'isAtameken', 'isAtajurt', 'isRepublic', 'isArnamys',
-       'isBirbol', 'isKyrgyzstan', 'isOnuguu', 'isRepAtajurt'],
+       'isBirbol', 'isKyrgyzstan', 'isOnuguu', 'isRepAtajurt', 'allParties'],
                                                                           var_name="sozyv",
                                                                           value_name="party").sort_values('name').dropna()
 
