@@ -7,7 +7,11 @@ import numpy as np
 import itertools
 from functools import reduce
 
-paths = ['III', 'IV', 'V', 'VI']
+paths = ['I', 'III', 'IV', 'V', 'VI']
+#%%
+df2 = pd.read_csv('II_raw.csv')
+df2.name = df2.name.replace({'\n': '', '    ': ' ', '   ': ' ', '  ': ''}, regex=True)
+df2.to_csv('export/II/II_from_republica.csv', index=False)
 # %%
 # Clean Data
 
@@ -26,12 +30,15 @@ name_tail_replace = {
     'ову': 'ова',
     'евну': 'евна',
     'овну': 'овна',
-    'ину': 'ина',
+    'ину': 'ина'
 }
 df = pd.read_csv('2010-12_V_raw.csv')
 df.name = df.name.replace(name_tail_replace, regex=True)
 df.to_csv('export/V/2010-12.csv', index=False)
 
+df = pd.read_csv('I_raw.csv')
+df.name = df.name.replace(name_tail_replace, regex=True)
+df.drop('palata', 1).to_csv('export/I/I.csv', index=False)
 # clean party and names
 party_rename = {
     'Политическая партия«Народная партия «Ак Жол»': 'Ак Жол',
@@ -83,6 +90,10 @@ name_rename = {
     'Масабиров Талайбек Айтмаматович': 'Масабиров Таалайбек Айтмаматович',
     'Турускулов Жыргалбек Күрүчбекович': 'Турускулов Жыргалбек Куручбекович',
     'Алыбаев Орозбек Артильевич': 'Алыбаев Орозбек Артельевич',
+    'Нур уула Досбола': 'Нур уулу Досбол',
+    'Бакир уула Турсунбай': 'Бакир уулу Турсунбай',
+    'Шайлиевой Токон Асановны': 'Шайлиева Токон Асановна',
+    'Бакир уула Турсунбая': 'Бакир уулу Турсунбай',
     'ү': 'у',
     'ө': 'о',
     'Ө': 'О',
@@ -147,8 +158,8 @@ def party_finder(df, party):
         lambda r: r.str.contains(party, case=False).any(), axis=1)
     df1[col_name[party]] = df1[col_name[party]].astype(int)
     return df1[['name', col_name[party]]]
-
-rename_cols = {'party_III': '3', 'party_IV': '4',
+party_cols = ['party_I', 'party_III', 'party_IV', 'party_V', 'party_VI']
+rename_cols = {'party_I' : '1','party_III': '3', 'party_IV': '4',
                'party_V': '5', 'party_VI': '6'}
 dfs = [pd.read_csv('export/cleaned/' + f + '.csv').reset_index().rename(
     columns={'party': 'party_'+f, 'index': 'num'}) for f in paths]
@@ -163,18 +174,18 @@ df_finder = reduce(lambda left, right: pd.merge(
     left, right, on=['name'], how='outer'), dfs)
 df_finder['partyChanger'] = 0
 for idx in df_finder.index:
-    if len(set(list(df_finder.drop('party_III', 1).loc[idx].values))) > 4:
+    if len(set(list(df_finder.drop(['party_III', 'party_I'], 1).loc[idx].values))) > 4:
         df_finder.loc[idx, 'partyChanger'] = 1
 df_partychange = df_finder[['name', 'partyChanger']]
 df_finder['isFemale'] = df_finder.name.str.contains(
     'ева|ова|евна|овна|Гульнара', regex=True)
 df_finder.isFemale = df_finder.isFemale.astype(int)
 df_female = df_finder[['name', 'isFemale']]
-df_finder['allParties'] = df_finder[['party_III', 'party_IV','party_V', 'party_VI']].apply(lambda row: ','.join([x.replace('nan', '') for x in row.values.astype(str)]), axis=1)
+df_finder['allParties'] = df_finder[party_cols].apply(lambda row: ','.join([x.replace('nan', '') for x in row.values.astype(str)]), axis=1)
 df_allParty = df_finder[['name', 'allParties']]
 dfs_export = [df_partychange, df_reduced, df_female, df_allParty]
 parties = list(pd.unique(
-    df_finder[['party_III', 'party_IV', 'party_V', 'party_VI']].values.ravel('K')))
+    df_finder[party_cols].values.ravel('K')))
 parties.remove(np.nan)
 for party in parties:
     dfs_export.append(party_finder(df_finder, party))
@@ -200,7 +211,7 @@ df_export.to_csv('visual/data/deputs_js.csv', index=False)
 #     print
 #df_export.loc[idx,'sozyvMisser'] = 1
 # %%
-df_finder.sort_values(['party_VI', 'party_V', 'party_IV', 'party_III']).to_csv(
+df_finder.sort_values(['party_VI', 'party_V', 'party_IV', 'party_III', 'party_I']).to_csv(
     'export/kenesh_deps.csv', index=False)
 # %%
 #%%
