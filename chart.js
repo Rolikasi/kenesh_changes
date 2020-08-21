@@ -123,7 +123,7 @@ d3.csv("data/deputs_js.csv")
             .tickValues(uniqueSozyv)
             .tickFormat((d) => d + " Созыв")
         )
-        .attr("transform", "translate( -" + rectWidth + " ,0)")
+        .attr("transform", () => "translate( -" + rectWidth.toString() + " ," + (rectsInCol - 6) * rectWidth + ")")
         .selectAll("text")
         .attr("transform", "rotate(-90)");
 
@@ -305,10 +305,17 @@ d3.csv("data/deputs_js.csv")
         d3.select(this).style("stroke", "black");
       };
       var mousemove = function (d) {
-        curParties = d.allParties.split(',').map((e,k)=> k+3 +' созыв: ' + e)
-        console.log(curParties)
+        Object.filter = (obj, predicate) =>
+    Object.keys(obj)
+          .filter( key => predicate(obj[key]) )
+          .reduce( (res, key) => (res[key] = obj[key], res), {} );
+
+        curParties = d.allParties.split(',');
+        curParties = Object.assign(...curParties.map((k, i) => ({ [i + 3 + " созыв:"]: k })));
+        var filtered = Object.filter(curParties, party => party != '');
+console.log(filtered);
         tooltip
-          .html("<p>" + d.name + "</p><p>" + curParties.filter((a, b) => a != '').map((e,k) => k+3 + ' созыв:' + e) + "</p>") //(e !=(k+3 +' созыв:' + e + '<br>' : '') ? (k+3 +' созыв:' + e + '<br>' : 0
+          .html("<p class='tooltip--text'>" + d.name + "</p>" + Object.entries(filtered).map(([k, v]) => "<p class='tooltip--text'>" +`${k} ${v}` )+"</p>") //(e !=(k+3 +' созыв:' + e + '<br>' : '') ? (k+3 +' созыв:' + e + '<br>' : 0
           .style("left", d.x + "px")
           .style("top", d.y + "px");
       };
