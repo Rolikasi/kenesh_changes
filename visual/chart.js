@@ -7,7 +7,7 @@ d3.csv("data/deputs_js.csv")
     var article = scrolly.select("article");
     var step = article.selectAll(".step");
     var laststep = article.select(".step--last");
-    var selected_party = null;
+    var selectedParty = null;
     var curResponse;
     var curStep = -1;
     var selectedDep = "";
@@ -28,19 +28,23 @@ d3.csv("data/deputs_js.csv")
     );
     var myColor = d3.scaleOrdinal().domain(parties).range([
       "#00965E", //maingreen
-      "#8C4799", //mainpurple
+      "#2F1501", //blackrfeorange
       "#665012", //mainbrown
-      "#BDC2C6", //lightrfegray
+      "#8C4799", //mainpurple
       "#5E2A01", //darkrfeorange
       "#F7C39A", //lightrfeorange
-      "#D12430", //mainred
+      "#BDC2C6", //lightrfegray
       "#FFC72C", // mainyellow
-      "#2F1501", //blackrfeorange
+      "#D12430", //mainred
       "#5B6770", // rfegray
+      '#A4D65E', //darklime
+      '#BA91C2', //lightpurple
+      '#EDA7AC', //lightred
       "#EA6903", //rfeorange
+      '#3EB1C8', //mainTurquois
       "#007DBA", // mainblue
     ]);
-
+    var topMissers = [62, 72, 468];
     var margin = {
       top: 25,
       right: 10,
@@ -94,9 +98,17 @@ d3.csv("data/deputs_js.csv")
         .attr("height", height + margin.top + margin.bottom)
         .append("g")
         .attr("transform", "translate(" + margin.left + "," + margin.top + ")");
+      // Y axis
+      var y = d3.scalePoint().domain(uniqueSozyv).range([0 + height / 20, height - height / 8]);
 
+      data.map(d => {
+        curCol = Math.floor(parseInt(d.num, 10) / rectsInCol);
+        curRow = Math.floor(d.num - rectsInCol * curCol);
+        d.y = y(d.sozyv) + curRow * rectPad;
+        d.curRow = curRow;
+        d.x = curCol * rectPad;
+        })
       console.log(data);
-
       const lookup = data.reduce((a, e) => {
         a[e.name] = ++a[e.name] || 0;
         return a;
@@ -111,8 +123,7 @@ d3.csv("data/deputs_js.csv")
         d.sort((a, b) => a.y - b.y)
       );
       console.log("depslines:", depsLines);
-      // Y axis
-      var y = d3.scaleBand().range([0, height]).domain(uniqueSozyv).padding(1);
+
       svg
         .append("g")
         .attr("stroke-width", 0)
@@ -128,18 +139,13 @@ d3.csv("data/deputs_js.csv")
             "translate( -" +
             rectWidth.toString() +
             " ," +
-            (rectsInCol - 6) * rectWidth +
-            ")"
+            rectsInCol * rectWidth +
+            ')'
         )
         .selectAll("text")
-        .attr("transform", "rotate(-90)");
-        data.map(d => {
-          curCol = Math.floor(parseInt(d.num, 10) / rectsInCol);
-          curRow = Math.floor(d.num - rectsInCol * curCol);
-          d.y = y(d.sozyv) + curRow * rectPad;
-          d.curRow = curRow;
-          d.x = curCol * rectPad;
-          })
+        .attr("transform", "rotate(-90)")
+        .style("text-anchor", "start");
+
 
 
 
@@ -149,6 +155,7 @@ d3.csv("data/deputs_js.csv")
         for (var i = 1; i < d.length; i++) {
           links.push({
             idname: d[i].idname,
+            partyCount: d[i].partyCount,
             name: d[i].name,
             isAkjol: d[i].isAkjol,
             isArnamys: d[i].isArnamys,
@@ -165,8 +172,8 @@ d3.csv("data/deputs_js.csv")
             isSDPK: d[i].isSDPK,
             isAlga: d[i].isAlga,
             isAdilet: d[i].isAdilet,
-            isNdk: d[i].isNdk,
-            isNewsila: d[i].isNewsila,
+            isOther: d[i].isOther,
+            //isNewsila: d[i].isNewsila,
             isNodata: d[i].isNodata,
             party: d[i].party,
             sozyvChange: d[i].sozyv - d[i - 1].sozyv,
@@ -199,13 +206,69 @@ d3.csv("data/deputs_js.csv")
         .y(function (d) {
           return d.y;
         });
+        tooltip ? tooltip.remove() : null;
+        var tooltip = d3
+          .select("#chart")
+          .append("div")
+          .style("opacity", 0)
+          .attr("class", "tooltip");
+
+        // Three function that change the tooltip when user hover / move / leave a cell
+
+        var mouseover = function (d) {
+
+          tooltip.style("opacity", 1);
+          d3.selectAll('.id-' + d.idname).style("stroke-width", "3");
+          d3.selectAll(".lines-id-" + d.idname).style("stroke-width", "3").raise();
+        };
+        var mousemove = function (d) {
+          Object.filter = (obj, predicate) =>
+            Object.keys(obj)
+              .filter((key) => predicate(obj[key]))
+              .reduce((res, key) => ((res[key] = obj[key]), res), {});
+
+          curParties = d.allParties.split(",");
+          curParties = Object.assign(
+            ...curParties.map((k, i) => ({ [i + 1 + " созыв:"]: k }))
+          );
+          var filtered = Object.filter(curParties, (party) => party != "");
+
+          tooltip
+            .html(
+              "<p class='tooltip--name'>" +
+                d.name +
+                "</p>" +
+                Object.entries(filtered).map(
+                  ([k, v]) => "<p class='tooltip--text'>" + `${k} ${v}`
+                ) +
+                "</p>"
+            )
+            .style("left", d.x + "px")
+            .style("top", d.y + "px");
+        };
+        var mouseleave = function (d) {
+          tooltip.style("opacity", 0);
+          d3.selectAll('.id-' + d.idname).style("stroke-width", '1');
+          d3.selectAll('.lines-id-' + d.idname).style("stroke-width", "1").lower();
+        };
+
+        const handleLegendClick = (d) => {
+          selectedParty = d.party ? d.party : d;
+          selectedDep = '';
+          handleStepEnter(curResponse);
+        };
+        const handleDepClick = (d) => {
+          selectedDep = d.name;
+          handleStepEnter(curResponse);
+        };
 
       svg
         .selectAll(".lines")
         .data(links)
         .enter()
         .append("path")
-        .attr("class", (d) => "lines " + "id-" + d.idname)
+        .attr("class", (d) => "lines " + "lines-id-" + d.idname)
+        .attr('opacity', '0.1')
         .attr("d", (d) => {
           if (d.sozyvChange > 1) {
             var x0 = d.source.x;
@@ -240,7 +303,11 @@ d3.csv("data/deputs_js.csv")
           }
         })
         .attr("stroke", (d) => myColor(d.party))
-        .attr("fill", "none");
+        .attr("fill", "none")
+        .on("mouseover", mouseover)
+        .on("mousemove", mousemove)
+        .on("mouseleave", mouseleave).on("click", (d) => handleDepClick(d));
+
         svg
         .selectAll("rect")
         .data(data)
@@ -257,7 +324,14 @@ d3.csv("data/deputs_js.csv")
         .attr("height", rectWidth)
         .attr("stroke", (d) => myColor(d.party))
         .attr("stroke-width", "1")
-        .attr("fill", (d) => myColor(d.party));
+        .attr('opacity', '0.1')
+        .attr("fill", (d) => myColor(d.party))
+        .on("mouseover", mouseover)
+        .on("mousemove", mousemove)
+        .on("mouseleave", mouseleave)
+        .on("click", (d) => handleDepClick(d));
+
+
       var legend = svg
         .selectAll(".legend")
         .data(parties)
@@ -269,7 +343,8 @@ d3.csv("data/deputs_js.csv")
           var horz = width - rectBtwn;
           var vert = i * heightLegend - rectPad;
           return "translate(" + horz + "," + vert + ")";
-        });
+        })
+        .on("click", (d) => handleLegendClick(d));
       legend
         .append("rect")
         .attr("height", rectWidth)
@@ -282,83 +357,42 @@ d3.csv("data/deputs_js.csv")
         .attr("x", 0 - rectBtwn)
         .attr("y", rectWidth)
         .text((d) => d);
-      tooltip ? tooltip.remove() : null;
-      var tooltip = d3
-        .select("#chart")
-        .append("div")
-        .style("opacity", 0)
-        .attr("class", "tooltip");
-
-      // Three function that change the tooltip when user hover / move / leave a cell
-
-      var mouseover = function (d) {
-
-        tooltip.style("opacity", 1);
-        d3.selectAll(".id-" + d.idname).style("stroke-width", "3");
-      };
-      var mousemove = function (d) {
-        Object.filter = (obj, predicate) =>
-          Object.keys(obj)
-            .filter((key) => predicate(obj[key]))
-            .reduce((res, key) => ((res[key] = obj[key]), res), {});
-
-        curParties = d.allParties.split(",");
-        curParties = Object.assign(
-          ...curParties.map((k, i) => ({ [i + 1 + " созыв:"]: k }))
-        );
-        var filtered = Object.filter(curParties, (party) => party != "");
-
-        tooltip
-          .html(
-            "<p class='tooltip--name'>" +
-              d.name +
-              "</p>" +
-              Object.entries(filtered).map(
-                ([k, v]) => "<p class='tooltip--text'>" + `${k} ${v}`
-              ) +
-              "</p>"
-          )
-          .style("left", d.x + "px")
-          .style("top", d.y + "px");
-      };
-      var mouseleave = function (d) {
-        tooltip.style("opacity", 0);
-        d3.selectAll(".id-" + d.idname).style("stroke-width", "1");
-      };
-      svg
-        .selectAll(".chartrect")
-        .on("mouseover", mouseover)
-        .on("mousemove", mousemove)
-        .on("mouseleave", mouseleave);
-
-      svg
-        .selectAll(".lines")
-        .on("mouseover", mouseover)
-        .on("mousemove", mousemove)
-        .on("mouseleave", mouseleave);
 
       callback();
     }
 
     function UpdateChart(step, svg) {
-      var t = d3.transition().duration(500).ease(d3.easeLinear);
       const opacityHandler = (d) => {
         if (step == 0) {
           return "1";
         } else if ((step == 1) & (d.sozyvMisser == "")) {
           return "1";
         } else if ((step == 2) & (d.partyChanger == "1")) {
+          topMissers.map(e => {
+            d3.select('.id-' + e).style("stroke-width", "1");
+            d3.select(".lines-id-" + e).style("stroke-width", "1").lower()
+          })
           return "1";
-        } else if ((step == 3) & (d.sozyvMisser > 1)) {
+        } else if ((step == 3) & (d.sozyvMisser > 1) ) {
+          topMissers.map(e => {
+            d3.select('.id-' + e).style("stroke-width", "3");
+            d3.select(".lines-id-" + e).style("stroke-width", "3").raise()
+          })
           return "1";
-        } else if ((step == 4) & (d.sozyvMisser > 2)) {
+        } else if ((step == 4) & (d.isFemale == "1")) {
+          topMissers.map(e => {
+            d3.select('.id-' + e).style("stroke-width", "1");
+            d3.select(".lines-id-" + e).style("stroke-width", "1").lower()
+          })
           return "1";
-        } else if ((step == 5) & (d.isFemale == "1")) {
+        } else if ((step == 5) & (d.partyCount > 2)) {
           return "1";
-        } else if ((step == 6) & (d.isSDPK == "1")) {
+        } else if ((step == 6) & (d.partyCount > 4)) {
           return "1";
-        } else if ((step == 7) & (selectedDep == "")) {
-          switch (selected_party) {
+        } else if ((step == 7) & (d.isSDPK == "1")) {
+          return "1";
+        } else if ((step == 8) & (selectedDep == "")) {
+          switch (selectedParty) {
             case "СДПК":
               return d.isSDPK == "1" ? "1" : "0.1";
             case "Республика - Ата Журт":
@@ -373,7 +407,7 @@ d3.csv("data/deputs_js.csv")
               return d.isOnuguu == "1" ? "1" : "0.1";
             case "Ар-Намыс":
               return d.isArnamys == "1" ? "1" : "0.1";
-            case "Партия коммунистов Кыргызстана":
+            case "Партия коммунистов КР":
               return d.isCommunist == "1" ? "1" : "0.1";
             case "Республика":
               return d.isRepublic == "1" ? "1" : "0.1";
@@ -385,10 +419,8 @@ d3.csv("data/deputs_js.csv")
               return d.isAtameken == "1" ? "1" : "0.1";
             case "Адилет":
               return d.isAdilet == "1" ? "1" : "0.1";
-            case "Народное движение Кыргызстана":
-              return d.isNdk == "1" ? "1" : "0.1";
-            case "Новая сила":
-              return d.isNewsila == "1" ? "1" : "0.1";
+            case "другое":
+              return d.isOther== "1" ? "1" : "0.1";
             case "Нет данных":
               return d.isNodata == "1" ? "1" : "0.1";
             case "Алга Кыргызстан":
@@ -396,20 +428,16 @@ d3.csv("data/deputs_js.csv")
             default:
               return "0.1";
           }
-        } else if ((step == 7) & (selectedDep != "")) {
+        } else if ((step == 8) & (selectedDep != "")) {
           return d.name == selectedDep ? "1" : "0.1";
         } else {
           return "0.1";
         }
       };
 
-      const handleLegendClick = (d) => {
-        selected_party = d.party ? d.party : d;
-        handleStepEnter(curResponse);
-      };
 
       const handleLegendFont = (d) => {
-        if ((d == selected_party) & (step == 7) & (selectedDep == "")) {
+        if ((d == selectedParty) & (step == 8) & (selectedDep == "")) {
           return "900";
         } else {
           return "100";
@@ -419,14 +447,12 @@ d3.csv("data/deputs_js.csv")
       svg
         .selectAll(".chartrect")
         .attr("opacity", (d) => opacityHandler(d));
-      svg.selectAll(".chartrect").on("click", (d) => handleLegendClick(d));
       svg
         .selectAll(".lines")
         .attr("opacity", (d) => opacityHandler(d));
 
       svg
         .selectAll(".legend")
-        .on("click", (d) => handleLegendClick(d))
         .selectAll("text")
         .attr("font-weight", (d) => handleLegendFont(d));
     }

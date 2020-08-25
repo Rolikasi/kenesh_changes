@@ -46,7 +46,7 @@ df.drop('palata', 1).to_csv('export/I/I.csv', index=False)
 # clean party and names
 party_rename = {
     'Политическая партия«Народная партия «Ак Жол»': 'Ак Жол',
-    'Партия коммунистов Кыргызстана': 'Партия коммунистов Кыргызстана',
+    'Партия коммунистов Кыргызстана': 'Партия коммунистов КР',
     'Социал-демократическая партия Кыргызстана (СДПК)': 'СДПК',
     'Политическая партия«Народная партия «Ак Жол» ': 'Ак Жол',
     'Политическая партия «Народная партия «Ак Жол»': 'Ак Жол',
@@ -62,7 +62,9 @@ party_rename = {
     'Фракция «Онугуу-Прогресс»': 'Онугуу-Прогресс',
     'Парламентская фракция «Ата Мекен»': 'Ата Мекен',
     'Парламентская фракция «Онугуу-Прогресс»': 'Онугуу-Прогресс',
-    'Алга, Кыргызстан': 'Алга Кыргызстан'
+    'Алга, Кыргызстан': 'Алга Кыргызстан',
+    "Новая сила": 'другое',
+    'Народное движение Кыргызстана': 'другое',
 }
 
 name_rename = {
@@ -98,6 +100,8 @@ name_rename = {
     'Нур уула Досбола': 'Нур уулу Досбол',
     'Бакир уула Турсунбай': 'Бакир уулу Турсунбай',
     'Шайлиевой Токон Асановны': 'Шайлиева Токон Асановна',
+    'Джангарачевой Миры Камилевны': 'Джангарачева Мира Камилевна',
+    'Ачыловой Рахат': 'Ачылова Рахат',
     'Бакир уула Турсунбая': 'Бакир уулу Турсунбай',
     'Алыкулов Мукамбек Калмаматович': 'Алыкулов Муканбек Калмаматович',
     'Байхожоев': 'Байкоджоев',
@@ -169,7 +173,7 @@ def party_finder(df, party):
     col_name = {'Самовыдвиженец': 'isIndependent',
                 'Ак Жол': 'isAkjol',
                 'СДПК': 'isSDPK',
-                'Партия коммунистов Кыргызстана': 'isCommunist',
+                'Партия коммунистов КР': 'isCommunist',
                 'Ата Мекен': 'isAtameken',
                 'Ата-Журт': "isAtajurt",
                 'Республика': 'isRepublic',
@@ -180,9 +184,10 @@ def party_finder(df, party):
                 'Республика - Ата Журт': 'isRepAtajurt',
                 'Алга Кыргызстан': 'isAlga',
                 'Адилет': 'isAdilet',
-                'Народное движение Кыргызстана': 'isNdk',
-                'Новая сила': 'isNewsila',
-                'Нет данных': 'isNodata'}
+                #'Народное движение Кыргызстана': 'isNdk',
+                #'Новая сила': 'isNewsila',
+                'Нет данных': 'isNodata',
+                'другое': 'isOther'}
     df1 = df.copy()
     df1[col_name[party]] = df1.apply(
         lambda r: r.str.contains(party, case=False).any(), axis=1)
@@ -207,7 +212,7 @@ df_finder = reduce(lambda left, right: pd.merge(
     left, right, on=['name'], how='outer'), dfs)
 df_finder['partyChanger'] = 0
 for idx in df_finder.index:
-    if len(set(list(df_finder.drop(['party_I', 'party_II'], 1).loc[idx].values))) > 4:
+    if len(set(list(df_finder.replace('Самовыдвиженец', np.nan).drop(['party_I', 'party_II'], 1).loc[idx].values))) > 4:
         df_finder.loc[idx, 'partyChanger'] = 1
 df_partychange = df_finder[['name', 'partyChanger']]
 df_finder['isFemale'] = df_finder.name.str.contains(
@@ -217,7 +222,9 @@ df_female = df_finder[['name', 'isFemale']]
 df_finder['allParties'] = df_finder[party_cols].apply(lambda row: ','.join(
     [x.replace('nan', '') for x in row.values.astype(str)]), axis=1)
 df_allParty = df_finder[['name', 'allParties']]
-dfs_export = [df_partychange, df_reduced, df_female, df_allParty]
+df_finder['partyCount'] = df_finder.allParties.apply(lambda strings: len([x for x in strings.split(',') if x]))
+df_partyCount = df_finder[['name', 'partyCount']]
+dfs_export = [df_partychange, df_reduced, df_female, df_allParty, df_partyCount]
 parties = list(pd.unique(
     df_finder[party_cols].values.ravel('K')))
 parties.remove(np.nan)
@@ -225,11 +232,10 @@ for party in parties:
     dfs_export.append(party_finder(df_finder, party))
 df_final = reduce(lambda left, right: pd.merge(
     left, right, on=['name'], how='outer'), dfs_export)
-df_export = df_final.sort_values('name').rename(columns=rename_cols).melt(id_vars=['name', 'partyChanger', 'num', 'isFemale', 'isIndependent', 'isAkjol', 'isSDPK',
+df_export = df_final.sort_values('name').rename(columns=rename_cols).melt(id_vars=['name', 'partyCount', 'partyChanger', 'num', 'isFemale', 'isIndependent', 'isAkjol', 'isSDPK',
                                                                                    'isCommunist', 'isAtameken', 'isAtajurt', 'isRepublic', 'isArnamys', 'isAlga',
                                                                                    'isAdilet',
-                                                                                   'isNdk',
-                                                                                   'isNewsila',
+                                                                                   'isOther',
                                                                                    'isNodata',
                                                                                    'isBirbol', 'isKyrgyzstan', 'isOnuguu', 'isRepAtajurt', 'allParties'],
                                                                           var_name="sozyv",
@@ -275,7 +281,10 @@ print(find_similar(df_export, 'name'))
 # %%
 df_name = df_export.drop_duplicates('name')
 # %%
-df_name[df_name.name == 'Шер Болот'].loc[1938, 'name']
-# %%
+df_name[df_name.sozyvMisser.isna()]
 
+print('%_singleparl', len(df_name[df_name.sozyvMisser.isna()]) / len(df_name) * 100)
+print('%_partychanger_from_total', len(df_name[df_name.partyChanger == 1]) / len(df_name) * 100)
+print('%_partychanger_from_stayed', len(df_name[df_name.partyChanger == 1]) / len(df_name[df_name.partyCount > 1]) * 100)
+print('%_partychanger_missers', len(df_name[df_name.sozyvMisser > 1]) / len(df_name[df_name.partyCount > 1]) * 100)
 # %%
