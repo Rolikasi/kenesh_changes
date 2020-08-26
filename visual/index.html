@@ -67,7 +67,6 @@
             -webkit-transform: translate3d(0, 0, 0);
             -moz-transform: translate3d(0, 0, 0);
             transform: translate3d(0, 0, 0);
-            z-index: 0;
         }
 
         figure div {
@@ -87,10 +86,6 @@
         .legend {
             font-size: 0.7rem;
             cursor: pointer;
-        }
-
-        #outro {
-            z-index: 2
         }
 
         .tooltip {
@@ -113,48 +108,75 @@
             font-weight: bold;
             margin:0;
         }
-
+        .intro {
+            display: flex;
+            flex-direction: column;
+            z-index: 100;
+            width: 100%;
+            justify-content: center;
+            height: 100vh;
+        }
+        @supports not (-ms-ime-align: auto) {
+            .intro {
+                display: flex;
+                flex-direction: column;
+                z-index: 100;
+                width: 100%;
+                justify-content: space-evenly;
+                height: 100vh;
+            }
+            }
         .intro__hed {
             font-size: 1.5rem;
             font-weight: bold;
             align-self: center;
             justify-self: center;
+            margin:auto;
         }
 
         .intro__dek {
+            margin:auto;
             font-size: 1rem;
             align-self: center;
             justify-self: center;
+            text-align: center;
+            padding: 1rem;
+            font-size: 0.8rem;
+            background-color: #EA6903;
+            color: #f4f4f4;
+            border-radius: 5px;
+            -webkit-box-shadow: 0 3px 3px 1px rgba(0, 0, 0, .11);
+            box-shadow: 0 3px 3px 1px rgba(0, 0, 0, .11);
+            border: 1px solid #d0cccc;
         }
 
         .logo {
             align-self: center;
             justify-self: center;
+            margin:auto;
         }
 
-        .intro {
-            display: flex;
-            flex-direction: column;
-        }
+
     </style>
 </head>
 
 <body>
     <main>
-        <section id="intro" class="intro">
-            <a class="logo" href="rus.azattyk.org">
-                <img src="https://raw.githubusercontent.com/Rolikasi/copypast_laws/master/Kyrgyz-RU_RGB_compact-brandmark.png"
-                    height='63px' width='113px'>
-            </a>
-            <h1 class="intro__hed">Как изменялся состав Жогорку Кенеша</h1>
-            <p class="intro__dek">
-                Вступительный текст <br>
-                Вступительный текст <br>
-                Вступительный текст
-            </p>
-        </section>
+
         <section id="scrolly">
             <figure>
+                <div id="intro" class="intro">
+                    <a class="logo" href="rus.azattyk.org">
+                        <img src="https://raw.githubusercontent.com/Rolikasi/copypast_laws/master/Kyrgyz-RU_RGB_compact-brandmark.png"
+                            height='63px' width='113px'>
+                    </a>
+                    <h1 class="intro__hed">Как изменялся состав Жогорку Кенеша</h1>
+                    <p class="intro__dek">
+                        Вступительный текст
+                        Вступительный текст
+                        Вступительный текст
+                    </p>
+                </div>
                 <div id='chart'></div>
             </figure>
             <article>
@@ -162,29 +184,32 @@
                     <p>Каждый квадрат обозначает отдельного депутата, линии показывают его переходы из созыва в созыв. Цвет обозначает принадлежность к партии.</p>
                 </div>
                 <div class="step" data-step="2">
-                    <p>«Односозывники». 3 из 4 депутатов избирались в парламент один раз.</p>
+                    <p>«Односозывники». 3 из 4 депутатов избирались в парламент только один раз.</p>
                 </div>
                 <div class="step" data-step="3">
-                    <p>«Перебежчики». 42% из тех, кто избирался повторно, меняли партию.</p>
+                    <p>«Перебежчики». Каждый третий депутат, который избирался повторно, менял партию.</p>
                 </div>
                 <div class="step" data-step="4">
-                    <p>«Прогульщики». Каждый третий депутат из тех, кто избирался повторно, пропустил один или несколько созывов. Алмазбек Атамбаев, Анвар Артыков и Закир Шарапов сделали самые большие перерывы. </p>
+                    <p>«Преданные». Каждый восьмой депутат возращался в парламент в составе одной и той же партии.</p>
                 </div>
                 <div class="step" data-step="5">
-                    <p>В парламенте третьего созыва не было женщин. А за всю историю Жогорку Кенеш ни разу не достиг квоты в 30%</p>
+                    <p>«Прогульщики». Каждый третий депутат из тех, кто избирался повторно, пропустил один или несколько созывов. Алмазбек Атамбаев, Анвар Артыков и Закир Шарапов сделали самые большие перерывы. </p>
                 </div>
                 <div class="step" data-step="6">
-                    <p>Опытные депутаты, которых избрали хотя бы 3 раза
-                    </p>
+                    <p>В парламенте третьего созыва не было женщин. А за всю историю Жогорку Кенеш ни разу не достиг квоты в 30%</p>
                 </div>
                 <div class="step" data-step="7">
-                    <p>Ни один депутат не был всесозывником. А Текебаев и Омуркулов избирались в парламент чаще всех – по 5 из 6 созывов
+                    <p>8% депутатов избирали хотя бы трижды
                     </p>
                 </div>
                 <div class="step" data-step="8">
+                    <p>Ни один депутат не был всесозывником. А Омурбек Текебаев и Иса Омуркулов избирались в парламент чаще всех – по 5 из 6 созывов
+                    </p>
+                </div>
+                <div class="step" data-step="9">
                     <p>СДПК</p>
                 </div>
-                <div class="step step--last" data-step="9">
+                <div class="step step--last" data-step="10">
                     <p>Нажмите на партию, чтобы увидеть депутатов, которые в ней состояли. Также вы можете искать
                         парламентариев по имени под графиком. </p>
 

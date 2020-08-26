@@ -190,7 +190,7 @@ def party_finder(df, party):
                 'другое': 'isOther'}
     df1 = df.copy()
     df1[col_name[party]] = df1.apply(
-        lambda r: r.str.contains(party, case=False).any(), axis=1)
+        lambda r: r.str.contains('^(' + party + ')\\b', case=False).any(), axis=1)
     df1[col_name[party]] = df1[col_name[party]].astype(int)
     return df1[['name', col_name[party]]]
 
@@ -212,8 +212,10 @@ df_finder = reduce(lambda left, right: pd.merge(
     left, right, on=['name'], how='outer'), dfs)
 df_finder['partyChanger'] = 0
 for idx in df_finder.index:
-    if len(set(list(df_finder.replace('Самовыдвиженец', np.nan).drop(['party_I', 'party_II'], 1).loc[idx].values))) > 4:
+    if len(set(list(df_finder.replace('Самовыдвиженец', np.nan).replace('Республика - Ата Журт', 'РеспАЖ').replace('Республика', 'РеспАЖ').replace('Ата-Журт', 'РеспАЖ').drop(['party_I', 'party_II'], 1).loc[idx].values))) > 4:
         df_finder.loc[idx, 'partyChanger'] = 1
+
+
 df_partychange = df_finder[['name', 'partyChanger']]
 df_finder['isFemale'] = df_finder.name.str.contains(
     'ева|ова|евна|овна|Гульнара', regex=True)
@@ -224,7 +226,9 @@ df_finder['allParties'] = df_finder[party_cols].apply(lambda row: ','.join(
 df_allParty = df_finder[['name', 'allParties']]
 df_finder['partyCount'] = df_finder.allParties.apply(lambda strings: len([x for x in strings.split(',') if x]))
 df_partyCount = df_finder[['name', 'partyCount']]
-dfs_export = [df_partychange, df_reduced, df_female, df_allParty, df_partyCount]
+df_finder['isPartyConstant'] = df_finder.allParties.apply(lambda strings: (len([x for x in strings.replace('Нет данных', '').replace('Самовыдвиженец', '').replace('Республика - Ата Журт', 'РеспАЖ').replace('Республика', 'РеспАЖ').replace('Ата-Журт', 'РеспАЖ').split(',') if x]) > 1) and (len(set([x for x in strings.replace('Нет данных', '').replace('Самовыдвиженец', '').replace('Республика - Ата Журт', 'РеспАЖ').replace('Республика', 'РеспАЖ').replace('Ата-Журт', 'РеспАЖ').split(',') if x])) == 1))
+df_partyConstant = df_finder[['name', 'isPartyConstant']]
+dfs_export = [df_partychange, df_reduced, df_female, df_allParty, df_partyCount, df_partyConstant]
 parties = list(pd.unique(
     df_finder[party_cols].values.ravel('K')))
 parties.remove(np.nan)
@@ -232,7 +236,7 @@ for party in parties:
     dfs_export.append(party_finder(df_finder, party))
 df_final = reduce(lambda left, right: pd.merge(
     left, right, on=['name'], how='outer'), dfs_export)
-df_export = df_final.sort_values('name').rename(columns=rename_cols).melt(id_vars=['name', 'partyCount', 'partyChanger', 'num', 'isFemale', 'isIndependent', 'isAkjol', 'isSDPK',
+df_export = df_final.sort_values('name').rename(columns=rename_cols).melt(id_vars=['name', 'isPartyConstant', 'partyCount', 'partyChanger', 'num', 'isFemale', 'isIndependent', 'isAkjol', 'isSDPK',
                                                                                    'isCommunist', 'isAtameken', 'isAtajurt', 'isRepublic', 'isArnamys', 'isAlga',
                                                                                    'isAdilet',
                                                                                    'isOther',
@@ -245,6 +249,7 @@ df_export = df_final.sort_values('name').rename(columns=rename_cols).melt(id_var
 # %%
 df_export = df_export.sort_values(['name', 'sozyv'])
 df_export.sozyv = df_export.sozyv.astype(int)
+df_export.isPartyConstant = df_export.isPartyConstant.astype(int)
 #df_export['sozyvMisser'] = 0
 df_export['sozyvMisser'] = df_export[['name', 'sozyv']].groupby('name').diff()
 dfc = df_export.groupby('name')['sozyvMisser']
@@ -286,5 +291,8 @@ df_name[df_name.sozyvMisser.isna()]
 print('%_singleparl', len(df_name[df_name.sozyvMisser.isna()]) / len(df_name) * 100)
 print('%_partychanger_from_total', len(df_name[df_name.partyChanger == 1]) / len(df_name) * 100)
 print('%_partychanger_from_stayed', len(df_name[df_name.partyChanger == 1]) / len(df_name[df_name.partyCount > 1]) * 100)
-print('%_partychanger_missers', len(df_name[df_name.sozyvMisser > 1]) / len(df_name[df_name.partyCount > 1]) * 100)
+print('%_dep_missers', len(df_name[df_name.sozyvMisser > 1]) / len(df_name[df_name.partyCount > 1]) * 100)
+print('%_party_constant', len(df_name[df_name.isPartyConstant == 1]) / len(df_name[df_name.partyCount > 1]) * 100)
+print('%_expirienced>3', len(df_name[df_name.partyCount >= 3]) / len(df_name) * 100)
+# %%
 # %%
