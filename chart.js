@@ -52,6 +52,7 @@ d3.csv("data/deputs_js.csv")
       left: 30,
     };
     maxWidth = 700;
+    d3.select('#chart').style('opacity', 0.1).style('pointer-events', 'none');
     function DrawChart(step, callback) {
       width =
         d3.min([window.innerWidth, maxWidth]) - margin.left - margin.right;
@@ -99,7 +100,7 @@ d3.csv("data/deputs_js.csv")
         .append("g")
         .attr("transform", "translate(" + margin.left + "," + margin.top + ")");
       // Y axis
-      var y = d3.scalePoint().domain(uniqueSozyv).range([0 + height / 20, height - height / 8]);
+      var y = d3.scalePoint().domain(uniqueSozyv).range([0 + height / 20, height - height / 7]);
 
       data.map(d => {
         curCol = Math.floor(parseInt(d.num, 10) / rectsInCol);
@@ -154,6 +155,7 @@ d3.csv("data/deputs_js.csv")
       depsLines.map((d) => {
         for (var i = 1; i < d.length; i++) {
           links.push({
+            isPartyConstant: d[i].isPartyConstant,
             idname: d[i].idname,
             partyCount: d[i].partyCount,
             name: d[i].name,
@@ -324,7 +326,6 @@ d3.csv("data/deputs_js.csv")
         .attr("height", rectWidth)
         .attr("stroke", (d) => myColor(d.party))
         .attr("stroke-width", "1")
-        .attr('opacity', '0.1')
         .attr("fill", (d) => myColor(d.party))
         .on("mouseover", mouseover)
         .on("mousemove", mousemove)
@@ -368,30 +369,32 @@ d3.csv("data/deputs_js.csv")
         } else if ((step == 1) & (d.sozyvMisser == "")) {
           return "1";
         } else if ((step == 2) & (d.partyChanger == "1")) {
+          return "1";
+        }else if ((step == 3) & (d.isPartyConstant == "1")) {
           topMissers.map(e => {
             d3.select('.id-' + e).style("stroke-width", "1");
             d3.select(".lines-id-" + e).style("stroke-width", "1").lower()
           })
           return "1";
-        } else if ((step == 3) & (d.sozyvMisser > 1) ) {
+        } else if ((step == 4) & (d.sozyvMisser > 1) ) {
           topMissers.map(e => {
             d3.select('.id-' + e).style("stroke-width", "3");
             d3.select(".lines-id-" + e).style("stroke-width", "3").raise()
           })
           return "1";
-        } else if ((step == 4) & (d.isFemale == "1")) {
+        } else if ((step == 5) & (d.isFemale == "1")) {
           topMissers.map(e => {
             d3.select('.id-' + e).style("stroke-width", "1");
             d3.select(".lines-id-" + e).style("stroke-width", "1").lower()
           })
           return "1";
-        } else if ((step == 5) & (d.partyCount > 2)) {
+        } else if ((step == 6) & (d.partyCount > 2)) {
           return "1";
-        } else if ((step == 6) & (d.partyCount > 4)) {
+        } else if ((step == 7) & (d.partyCount > 4)) {
           return "1";
-        } else if ((step == 7) & (d.isSDPK == "1")) {
+        } else if ((step == 8) & (d.isSDPK == "1")) {
           return "1";
-        } else if ((step == 8) & (selectedDep == "")) {
+        } else if ((step == 9) & (selectedDep == "")) {
           switch (selectedParty) {
             case "СДПК":
               return d.isSDPK == "1" ? "1" : "0.1";
@@ -428,7 +431,7 @@ d3.csv("data/deputs_js.csv")
             default:
               return "0.1";
           }
-        } else if ((step == 8) & (selectedDep != "")) {
+        } else if ((step == 9) & (selectedDep != "")) {
           return d.name == selectedDep ? "1" : "0.1";
         } else {
           return "0.1";
@@ -437,7 +440,7 @@ d3.csv("data/deputs_js.csv")
 
 
       const handleLegendFont = (d) => {
-        if ((d == selectedParty) & (step == 8) & (selectedDep == "")) {
+        if ((d == selectedParty) & (step == 9) & (selectedDep == "")) {
           return "900";
         } else {
           return "100";
@@ -446,9 +449,13 @@ d3.csv("data/deputs_js.csv")
 
       svg
         .selectAll(".chartrect")
+        .transition()
+        .delay(function(d,i){ return i; })
         .attr("opacity", (d) => opacityHandler(d));
       svg
         .selectAll(".lines")
+        .transition()
+        .delay(function(d,i){ return i; })
         .attr("opacity", (d) => opacityHandler(d));
 
       svg
@@ -514,26 +521,35 @@ d3.csv("data/deputs_js.csv")
     }
     // scrollama event handlers
     function handleStepEnter(response) {
-      // response = { element, direction, index }
-      console.log(response.index);
-      var svg = d3.select("#chart svg");
-      curResponse = response;
-      curStep = response.index;
-      if (svg.empty()) {
-        DrawChart(response.index, function () {
-          UpdateChart(response.index, svg);
-        });
-      } else {
-        UpdateChart(response.index, svg);
+      if (response.index == 0) {
+        d3.select('#intro').style('pointer-events', 'none').transition().style('opacity', 0);
+        d3.select('#chart').style('pointer-events', 'auto').transition().style('opacity', 1);
       }
+      // response = { element, direction, index }
+      var svg = d3.select("#chart svg");
+      if (response) {
+        curResponse = response;
+        curStep = response.index;
+        if (svg.empty()) {
+          DrawChart(response.index, function () {
+            UpdateChart(response.index, svg);
+          });
+        } else {
+          UpdateChart(response.index, svg);
+        }
+      }
+
 
       // add to color to current step
       //response.element.classList.add("is-active");
     }
 
     function handleStepExit(response) {
+      if (response.index == 0 & response.direction == 'up') {
+        d3.select('#intro').style('pointer-events', 'auto').transition().style('opacity', 1);
+        d3.select('#chart').style('pointer-events', 'none').raise().transition().style('opacity', 0.1);
+      }
       // response = { element, direction, index }
-      console.log(response);
       // remove color from current step
       //response.element.classList.remove("is-active");
     }
