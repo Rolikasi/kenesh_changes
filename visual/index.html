@@ -57,6 +57,7 @@
             -webkit-box-shadow: 0 3px 3px 1px rgba(0, 0, 0, .11);
             box-shadow: 0 3px 3px 1px rgba(0, 0, 0, .11);
             border: 1px solid #d0cccc;
+            line-height: 1.65;
         }
 
         figure {
@@ -145,7 +146,7 @@
             align-self: center;
             justify-self: center;
             margin: auto;
-            color:#444;
+            color: #444;
         }
 
         .intro__dek {
@@ -190,17 +191,152 @@
 
         .arrows span {
             display: block;
-            margin:auto;
+            margin: auto;
             width: 1rem;
             height: 1rem;
             border-bottom: 0.2rem solid #5B6770;
-            border-right: 0.2rem  solid #5B6770;
+            border-right: 0.2rem solid #5B6770;
             transform: rotate(45deg);
             animation: animate 3s infinite;
         }
 
         .arrows span:nth-child(2) {
             animation-delay: -0.1s;
+        }
+
+        .depselected {
+            stroke-width: 3;
+        }
+
+        .highlighted {
+            background-color: #EA6903;
+            color:#f4f4f4;
+            border-radius: .25rem;
+            padding: .125rem .25rem;
+            white-space: nowrap;
+            }
+
+        .underlined {
+            text-decoration-line: underline;
+            animation: lineanim 8s infinite;
+        }
+
+        .rect {
+            height: 0.9rem;
+            width: 0.9rem;
+            vertical-align: middle;
+            display: inline-block;
+        }
+
+        .rect-animation {
+            animation: rectanim 8s infinite;
+        }
+
+        @keyframes lineanim {
+            0% {
+                -webkit-text-decoration-color: #BDC2C6;
+                /* Safari */
+                text-decoration-color: #BDC2C6;
+            }
+
+            10% {
+                -webkit-text-decoration-color: #00965E;
+                ;
+                /* Safari */
+                text-decoration-color: #00965E;
+            }
+
+            20% {
+                -webkit-text-decoration-color: #007DBA;
+                /* Safari */
+                text-decoration-color: #007DBA;
+            }
+
+            30% {
+                -webkit-text-decoration-color: #A4D65E;
+                /* Safari */
+                text-decoration-color: #A4D65E;
+            }
+
+            40% {
+                -webkit-text-decoration-color: #FFC72C;
+                /* Safari */
+                text-decoration-color: #FFC72C;
+            }
+
+            50% {
+                -webkit-text-decoration-color: #EA6903;
+                /* Safari */
+                text-decoration-color: #EA6903;
+            }
+            60% {
+                -webkit-text-decoration-color: #665012;
+                /* Safari */
+                text-decoration-color: #665012;
+            }
+            70% {
+                -webkit-text-decoration-color: #D12430;
+                /* Safari */
+                text-decoration-color: #D12430;
+            }
+            80% {
+                -webkit-text-decoration-color: #8C4799;
+                /* Safari */
+                text-decoration-color: #8C4799;
+            }
+            90% {
+                -webkit-text-decoration-color: #2F1501;
+                /* Safari */
+                text-decoration-color: #2F1501;
+            }
+
+            100% {
+                -webkit-text-decoration-color: #BDC2C6;
+                /* Safari */
+                text-decoration-color: #BDC2C6;
+            }
+        }
+
+        @keyframes rectanim {
+            0% {
+                background-color: #BDC2C6;
+            }
+
+            10% {
+                background-color: #00965E;
+            }
+
+            20% {
+                background-color: #007DBA;
+            }
+
+            30% {
+                background-color: #A4D65E;
+            }
+
+            40% {
+                background-color: #FFC72C;
+            }
+
+            50% {
+                background-color: #EA6903;
+            }
+            60% {
+                background-color: #665012;
+            }
+            70% {
+                background-color: #D12430;
+            }
+            80% {
+                background-color: #8C4799;
+            }
+            90% {
+                background-color: #2F1501;
+            }
+
+            100% {
+                background-color: #BDC2C6;
+            }
         }
 
         @keyframes animate {
@@ -217,9 +353,6 @@
                 opacity: 0;
                 transform: rotate(45deg) translate(20px, 20px);
             }
-        }
-        .depselected{
-            stroke-width: 3;
         }
     </style>
 </head>
@@ -252,11 +385,12 @@
             </figure>
             <article>
                 <div class="step" data-step="1">
-                    <p>Каждый квадрат обозначает отдельного депутата, линии показывают его переходы из созыва в созыв.
+                    <p>Каждый квадрат обозначает отдельного <span class="rect rect-animation"></span> депутата, <span
+                            class="underlined">линии</span> показывают его переходы из созыва в созыв.
                         Цвет обозначает принадлежность к партии.</p>
                 </div>
                 <div class="step" data-step="2">
-                    <p>«Односозывники». 3 из 4 депутатов избирались в парламент только один раз.</p>
+                    <p>«Односозывники». 3 из 4 депутатов избирались в парламент только <span class="highlighted">один раз.</span></p>
                 </div>
                 <div class="step" data-step="3">
                     <p>«Перебежчики». Каждый третий депутат, который избирался повторно, менял партию.</p>
@@ -265,11 +399,11 @@
                     <p>«Преданные». Каждый восьмой депутат возращался в парламент в составе одной и той же партии.</p>
                 </div>
                 <div class="step" data-step="5">
-                    <p>«Прогульщики». Каждый третий депутат из тех, кто избирался повторно, пропустил один или несколько
+                    <p>«Прогульщики». Каждый третий депутат из тех, кто избирался повторно, <span class="highlighted">пропустил</span> один или несколько
                         созывов. Алмазбек Атамбаев, Анвар Артыков и Закир Шарапов сделали самые большие перерывы. </p>
                 </div>
                 <div class="step" data-step="6">
-                    <p>В парламенте третьего созыва не было женщин. А за всю историю Жогорку Кенеш ни разу не достиг
+                    <p>В парламенте третьего созыва <span class="highlighted">не было женщин</span>. А за всю историю Жогорку Кенеш ни разу не достиг
                         квоты в 30%</p>
                 </div>
                 <div class="step" data-step="7">
@@ -285,7 +419,7 @@
                     <p>СДПК</p>
                 </div>
                 <div class="step step--last" data-step="10">
-                    <p>Нажмите на партию, чтобы увидеть депутатов, которые в ней состояли. Также вы можете искать
+                    <p>Нажмите на партию справа, чтобы увидеть депутатов, которые в ней состояли. Также вы можете искать
                         парламентариев по имени под графиком. </p>
 
                 </div>

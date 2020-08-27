@@ -352,8 +352,8 @@ d3.csv("data/deputs_js.csv")
           var horz = width - rectBtwn;
           var vert = i * heightLegend - rectPad;
           return "translate(" + horz + "," + vert + ")";
-        })
-        .on("click", (d) => {handleLegendClick(d)});
+        });
+
       legend
         .append("rect")
         .attr("height", rectWidth)
@@ -366,6 +366,7 @@ d3.csv("data/deputs_js.csv")
         .attr("x", 0 - rectBtwn)
         .attr("y", rectWidth)
         .text((d) => d);
+      legend.on("click", (d) => {handleLegendClick(d)});
 
       callback();
     }
