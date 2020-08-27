@@ -221,8 +221,8 @@ d3.csv("data/deputs_js.csv")
         var mouseover = function (d) {
 
           tooltip.style("opacity", 1);
-          d3.selectAll('.id-' + d.idname).style("stroke-width", "3");
-          d3.selectAll(".lines-id-" + d.idname).style("stroke-width", "3").raise();
+          d3.selectAll('.id-' + d.idname).classed('depselected', true);
+          d3.selectAll(".lines-id-" + d.idname).raise().classed('depselected',true);
         };
         var mousemove = function (d) {
           Object.filter = (obj, predicate) =>
@@ -251,8 +251,8 @@ d3.csv("data/deputs_js.csv")
         };
         var mouseleave = function (d) {
           tooltip.style("opacity", 0);
-          d3.selectAll('.id-' + d.idname).style("stroke-width", '1');
-          d3.selectAll('.lines-id-' + d.idname).style("stroke-width", "1").lower();
+          d3.selectAll('.id-' + d.idname).classed('depselected', false);
+          d3.selectAll('.lines-id-' + d.idname).lower().classed('depselected', false);
         };
 
         const handleLegendClick = (d) => {
@@ -371,8 +371,14 @@ d3.csv("data/deputs_js.csv")
     }
 
     function UpdateChart(step, svg) {
+      if (selectedDep != ''){
+        null
+      } else {
+        d3.select('.tooltip').style('opacity', 0);
+        d3.selectAll('.depselected').classed('depselected', false)
+      }
       const opacityHandler = (d) => {
-        if ((selectedDep != "")) {
+        if (selectedDep != "") {
           return d.name == selectedDep ? "1" : "0.1";
         }
         else if (step == 0) {
