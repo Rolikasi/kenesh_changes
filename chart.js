@@ -127,6 +127,7 @@ d3.csv("data/deputs_js.csv")
 
       svg
         .append("g")
+        .on('click', () => d3.event.stopPropagation())
         .attr("stroke-width", 0)
         .call(
           d3
@@ -258,11 +259,16 @@ d3.csv("data/deputs_js.csv")
           selectedParty = d.party ? d.party : d;
           selectedDep = '';
           handleStepEnter(curResponse);
+          d3.event.stopPropagation();
         };
         const handleDepClick = (d) => {
           selectedDep = d.name;
           handleStepEnter(curResponse);
         };
+        const handleSvgClick = (d) => {
+          selectedDep = '';
+          handleStepEnter(curResponse);
+        }
 
       svg
         .selectAll(".lines")
@@ -308,7 +314,8 @@ d3.csv("data/deputs_js.csv")
         .attr("fill", "none")
         .on("mouseover", mouseover)
         .on("mousemove", mousemove)
-        .on("mouseleave", mouseleave).on("click", (d) => handleDepClick(d));
+        .on("mouseleave", mouseleave).on("click", (d) => {handleDepClick(d)
+          d3.event.stopPropagation();} );
 
         svg
         .selectAll("rect")
@@ -330,9 +337,10 @@ d3.csv("data/deputs_js.csv")
         .on("mouseover", mouseover)
         .on("mousemove", mousemove)
         .on("mouseleave", mouseleave)
-        .on("click", (d) => handleDepClick(d));
+        .on("click", (d) => {handleDepClick(d);
+          d3.event.stopPropagation();});
 
-
+          d3.select('#chart').on('click', d => handleSvgClick(d))
       var legend = svg
         .selectAll(".legend")
         .data(parties)
@@ -345,7 +353,7 @@ d3.csv("data/deputs_js.csv")
           var vert = i * heightLegend - rectPad;
           return "translate(" + horz + "," + vert + ")";
         })
-        .on("click", (d) => handleLegendClick(d));
+        .on("click", (d) => {handleLegendClick(d)});
       legend
         .append("rect")
         .attr("height", rectWidth)
@@ -364,7 +372,10 @@ d3.csv("data/deputs_js.csv")
 
     function UpdateChart(step, svg) {
       const opacityHandler = (d) => {
-        if (step == 0) {
+        if ((selectedDep != "")) {
+          return d.name == selectedDep ? "1" : "0.1";
+        }
+        else if (step == 0) {
           return "1";
         } else if ((step == 1) & (d.sozyvMisser == "")) {
           return "1";
@@ -431,8 +442,6 @@ d3.csv("data/deputs_js.csv")
             default:
               return "0.1";
           }
-        } else if ((step == 9) & (selectedDep != "")) {
-          return d.name == selectedDep ? "1" : "0.1";
         } else {
           return "0.1";
         }
@@ -446,6 +455,9 @@ d3.csv("data/deputs_js.csv")
           return "100";
         }
       };
+
+      d3.select('#outro input')
+      .attr("value", () => (selectedDep != "" ? selectedDep : ""))
 
       svg
         .selectAll(".chartrect")
@@ -522,8 +534,8 @@ d3.csv("data/deputs_js.csv")
     // scrollama event handlers
     function handleStepEnter(response) {
       if (response.index == 0) {
-        d3.select('#intro').style('pointer-events', 'none').transition().style('opacity', 0);
-        d3.select('#chart').style('pointer-events', 'auto').transition().style('opacity', 1);
+        d3.select('#intro').style('pointer-events', 'none').transition().duration(600).style('opacity', 0);
+        d3.select('#chart').style('pointer-events', 'auto').transition().duration(600).style('opacity', 1);
       }
       // response = { element, direction, index }
       var svg = d3.select("#chart svg");
@@ -545,9 +557,10 @@ d3.csv("data/deputs_js.csv")
     }
 
     function handleStepExit(response) {
+      selectedDep = '';
       if (response.index == 0 & response.direction == 'up') {
-        d3.select('#intro').style('pointer-events', 'auto').transition().style('opacity', 1);
-        d3.select('#chart').style('pointer-events', 'none').raise().transition().style('opacity', 0.1);
+        d3.select('#intro').style('pointer-events', 'auto').transition().duration(600).style('opacity', 1);
+        d3.select('#chart').style('pointer-events', 'none').transition().duration(600).style('opacity', 0.1);
       }
       // response = { element, direction, index }
       // remove color from current step
