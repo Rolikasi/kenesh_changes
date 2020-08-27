@@ -70,7 +70,7 @@
             transform: translate3d(0, 0, 0);
         }
 
-        figure div {
+        figure #chart {
             text-align: center;
             padding: 0;
             position: absolute;
@@ -91,6 +91,8 @@
         }
 
         .tooltip {
+            position: absolute;
+            z-index: 1000;
             padding: 0.3rem;
             pointer-events: none;
             font-size: 0.6rem;
@@ -103,48 +105,72 @@
             border: 1px solid #d0cccc;
             transform: translate(0, -65%);
         }
+
         .tooltip--text {
-            margin :0;
+            margin: 0;
         }
-        .tooltip--name{
+
+        .tooltip--name {
             font-weight: bold;
-            margin:0;
+            margin: 0;
         }
+
         .intro {
+            position: absolute;
             display: flex;
             flex-direction: column;
-            z-index: 100;
+            z-index: 1000;
             width: 100%;
             justify-content: center;
             height: 100vh;
+            text-align: center;
         }
+
         @supports not (-ms-ime-align: auto) {
             .intro {
+                position: absolute;
                 display: flex;
+                text-align: center;
                 flex-direction: column;
-                z-index: 100;
+                z-index: 1000;
                 width: 100%;
                 justify-content: space-evenly;
                 height: 100vh;
             }
-            }
+        }
+
         .intro__hed {
             font-size: 1.5rem;
             font-weight: bold;
             align-self: center;
             justify-self: center;
-            margin:auto;
+            margin: auto;
+            color:#444;
         }
 
         .intro__dek {
-            margin:auto;
-            font-size: 1rem;
+            margin: auto;
+        }
+
+        .intro__dek h1 {
             align-self: center;
             justify-self: center;
             text-align: center;
             padding: 1rem;
-            font-size: 0.8rem;
+            font-size: 1rem;
             background-color: #EA6903;
+            color: #f4f4f4;
+            border-radius: 5px;
+            -webkit-box-shadow: 0 3px 3px 1px rgba(0, 0, 0, .11);
+            box-shadow: 0 3px 3px 1px rgba(0, 0, 0, .11);
+        }
+
+        .intro__dek p {
+            font-size: 0.8rem;
+            background-color: #5B6770;
+            max-width: 10rem;
+            margin: -1rem auto 0 auto;
+            padding: 0.5rem;
             color: #f4f4f4;
             border-radius: 5px;
             -webkit-box-shadow: 0 3px 3px 1px rgba(0, 0, 0, .11);
@@ -154,10 +180,44 @@
         .logo {
             align-self: center;
             justify-self: center;
-            margin:auto;
+            margin: auto;
         }
 
+        .down {
+            transform: rotate(45deg);
+            -webkit-transform: rotate(45deg);
+        }
 
+        .arrows span {
+            display: block;
+            margin:auto;
+            width: 1rem;
+            height: 1rem;
+            border-bottom: 0.2rem solid #5B6770;
+            border-right: 0.2rem  solid #5B6770;
+            transform: rotate(45deg);
+            animation: animate 3s infinite;
+        }
+
+        .arrows span:nth-child(2) {
+            animation-delay: -0.1s;
+        }
+
+        @keyframes animate {
+            0% {
+                opacity: 0;
+                transform: rotate(45deg) translate(-20px, -20px);
+            }
+
+            50% {
+                opacity: 1;
+            }
+
+            100% {
+                opacity: 0;
+                transform: rotate(45deg) translate(20px, 20px);
+            }
+        }
     </style>
 </head>
 
@@ -172,17 +232,25 @@
                             height='63px' width='113px'>
                     </a>
                     <h1 class="intro__hed">Как изменялся состав Жогорку Кенеша</h1>
-                    <p class="intro__dek">
-                        Вступительный текст
-                        Вступительный текст
-                        Вступительный текст
-                    </p>
+                    <div class="intro__dek">
+                        <h1>
+                            Вступительный текст
+                            Вступительный текст
+                            Вступительный текст
+                        </h1>
+                        <p>Автор: Эдиль Байызбеков</p>
+                        <div class="arrows">
+                            <span></span>
+                            <span></span>
+                        </div>
+                    </div>
                 </div>
                 <div id='chart'></div>
             </figure>
             <article>
                 <div class="step" data-step="1">
-                    <p>Каждый квадрат обозначает отдельного депутата, линии показывают его переходы из созыва в созыв. Цвет обозначает принадлежность к партии.</p>
+                    <p>Каждый квадрат обозначает отдельного депутата, линии показывают его переходы из созыва в созыв.
+                        Цвет обозначает принадлежность к партии.</p>
                 </div>
                 <div class="step" data-step="2">
                     <p>«Односозывники». 3 из 4 депутатов избирались в парламент только один раз.</p>
@@ -194,17 +262,20 @@
                     <p>«Преданные». Каждый восьмой депутат возращался в парламент в составе одной и той же партии.</p>
                 </div>
                 <div class="step" data-step="5">
-                    <p>«Прогульщики». Каждый третий депутат из тех, кто избирался повторно, пропустил один или несколько созывов. Алмазбек Атамбаев, Анвар Артыков и Закир Шарапов сделали самые большие перерывы. </p>
+                    <p>«Прогульщики». Каждый третий депутат из тех, кто избирался повторно, пропустил один или несколько
+                        созывов. Алмазбек Атамбаев, Анвар Артыков и Закир Шарапов сделали самые большие перерывы. </p>
                 </div>
                 <div class="step" data-step="6">
-                    <p>В парламенте третьего созыва не было женщин. А за всю историю Жогорку Кенеш ни разу не достиг квоты в 30%</p>
+                    <p>В парламенте третьего созыва не было женщин. А за всю историю Жогорку Кенеш ни разу не достиг
+                        квоты в 30%</p>
                 </div>
                 <div class="step" data-step="7">
                     <p>8% депутатов избирали хотя бы трижды
                     </p>
                 </div>
                 <div class="step" data-step="8">
-                    <p>Ни один депутат не был всесозывником. А Омурбек Текебаев и Иса Омуркулов избирались в парламент чаще всех – по 5 из 6 созывов
+                    <p>Ни один депутат не был всесозывником. А Омурбек Текебаев и Иса Омуркулов избирались в парламент
+                        чаще всех – по 5 из 6 созывов
                     </p>
                 </div>
                 <div class="step" data-step="9">
@@ -218,9 +289,6 @@
             </article>
         </section>
         <section id="outro">
-        </section>
-        <section id="end">
-            <p>Код + Дизайн: Эдиль Байызбеков</p>
         </section>
     </main>
     <script src="chart.js" async defer></script>
