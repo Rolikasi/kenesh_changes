@@ -1,4 +1,4 @@
-d3.csv("data/deputs_js.csv")
+d3.csv("https://raw.githubusercontent.com/Rolikasi/kenesh_changes/master/visual/data/deputs_js.csv")
   .then(function (data) {
     const bodySel = d3.select("body");
     var main = d3.select("main");
@@ -63,6 +63,13 @@ d3.csv("data/deputs_js.csv")
       rectBtwn = rectPad - rectWidth;
       rectsInRow = Math.floor(width / (rectWidth + rectBtwn));
       rectsInCol = Math.ceil(maxDepNum / rectsInRow);
+      var svg = d3
+      .select("#chart")
+      .append("svg")
+      .attr("width", width + margin.left + margin.right)
+      .attr("height", height + margin.top + margin.bottom)
+      .append("g")
+      .attr("transform", "translate(" + margin.left + "," + margin.top + ")");
       main
         .select("#end")
         .style("max-width", maxWidth + "px")
@@ -74,7 +81,7 @@ d3.csv("data/deputs_js.csv")
         .append("input")
         .attr("list", "depsList")
         .attr("height", rectWidth * 2)
-        .attr("width", width / 2)
+        .attr("width", width * 0.8)
         .attr("name", "submit")
         .attr("type", "text")
         .attr("placeholder", "Введите имя депутата")
@@ -82,7 +89,7 @@ d3.csv("data/deputs_js.csv")
         .on("input", (d) => {
           selectedDep = main.select("input").property("value");
           if (uniqueDeps.includes(selectedDep)) {
-            handleStepEnter(curResponse);
+            UpdateChart(curResponse.index, svg);
           }
         });
       dataList = outro.append("datalist").attr("id", "depsList");
@@ -93,13 +100,7 @@ d3.csv("data/deputs_js.csv")
         .enter()
         .append("option")
         .attr("value", (d) => d);
-      var svg = d3
-        .select("#chart")
-        .append("svg")
-        .attr("width", width + margin.left + margin.right)
-        .attr("height", height + margin.top + margin.bottom)
-        .append("g")
-        .attr("transform", "translate(" + margin.left + "," + margin.top + ")");
+
       // Y axis
       var y = d3.scalePoint().domain(uniqueSozyv).range([0 + height / 20, height - height / 7]);
 
