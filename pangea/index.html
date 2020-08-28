@@ -599,6 +599,13 @@
         .depselected {
             stroke-width: 3;
         }
+        #end {
+            margin: 0.4rem 0 0 0;
+        }
+        #end p{
+            margin:0.2rem 0;
+            font-size: 0.8rem;
+        }
 
         .highlighted {
             background-color: #EA6903;
@@ -798,7 +805,7 @@
         <section id="scrolly">
             <figure>
                 <div id="intro" class="intro">
-                    <a class="logo" href="rus.azattyk.org">
+                    <a class="logo" href="/">
                         <img src="https://raw.githubusercontent.com/Rolikasi/kenesh_changes/master/visual/logo/Kyrgyz-RU_RGB_compact-brandmark_for_amp_deps.png"
                             height='63px' width='113px'>
                     </a>
@@ -875,6 +882,10 @@
         </section>
         <section id="outro">
         </section>
+        <section id="end">
+            <p>Код+дизайн: Эдиль Байызбеков</p>
+            <p>Редактура: Улукбек уулу Ырысбек</p>
+        </section>
     </main>
     <script async defer>d3.csv("https://raw.githubusercontent.com/Rolikasi/kenesh_changes/master/visual/data/deputs_js.csv")
         .then(function (data) {
@@ -950,7 +961,6 @@
             main
               .select("#end")
               .style("max-width", maxWidth + "px")
-              .style("margin", "auto");
             outro = main
               .select("#outro")
               .style("max-width", maxWidth + "px")
