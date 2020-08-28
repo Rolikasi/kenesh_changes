@@ -177,21 +177,19 @@ def party_finder(df, party):
                 'Партия коммунистов': 'isCommunist',
                 'Ата Мекен': 'isAtameken',
                 'Ата-Журт': "isAtajurt",
-                'Республика': 'isRepublic',
                 'Ар-Намыс': 'isArnamys',
                 'Бир Бол': 'isBirbol',
                 'Кыргызстан': 'isKyrgyzstan',
+                'Республика': 'isRepublic',
                 'Онугуу-Прогресс': 'isOnuguu',
                 'Республика - Ата Журт': 'isRepAtajurt',
                 'Алга Кыргызстан': 'isAlga',
                 'Адилет': 'isAdilet',
                 'Движение Ата-Журт': 'isDvijAtajurt',
-                #'Народное движение Кыргызстана': 'isNdk',
-                #'Новая сила': 'isNewsila',
                 'другое': 'isOther'}
     df1 = df.copy()
     df1[col_name[party]] = df1.apply(
-        lambda r: r.str.contains('^(' + party + ')\\b', case=False).any(), axis=1)
+        lambda r: r.str.contains('^(' + party + ')$', case=False).any(), axis=1)
     df1[col_name[party]] = df1[col_name[party]].astype(int)
     return df1[['name', col_name[party]]]
 

@@ -799,7 +799,7 @@
             <figure>
                 <div id="intro" class="intro">
                     <a class="logo" href="rus.azattyk.org">
-                        <img src="https://raw.githubusercontent.com/Rolikasi/copypast_laws/master/Kyrgyz-RU_RGB_compact-brandmark.png"
+                        <img src="https://raw.githubusercontent.com/Rolikasi/kenesh_changes/master/visual/logo/Kyrgyz_RGB_compact-brandmark.png"
                             height='63px' width='113px'>
                     </a>
                     <div class="intro__hed">
@@ -852,7 +852,7 @@
                     </p>
                 </div>
                 <div class="step" data-step="9">
-                    <p>Депутаттардын арасында бардык чакырылышта иштегендери жок. Өмүрбек Текебаев менен Иса Өмүркулов эң көп – 5 жолу шайланышкан.
+                    <p>Депутаттардын арасында <span class="highlighted">бардык чакырылышта</span> иштегендери жок. Өмүрбек Текебаев менен Иса Өмүркулов эң көп – 5 жолу шайланышкан.
                     </p>
                 </div>
                 <div class="step step--last" data-step="10">
@@ -896,16 +896,15 @@
                     "#5E2A01", //darkrfeorange
                     "#BDC2C6", //lightrfeorange
                     "#A4D65E", //darklime
-                    "#00965E", // maingreen
                     "#EDA7AC", //mainpurple
-
+                    "#00965E", // maingreen
                     "#F7C39A",
                     '#00acc5', //lightrfegray
                     "#D12430", //mainred
+                    "#2F1501", //blackrfeorange
                     "#5B6770", // rfegray
                     '#8C4799', //mainbrown
                     '#BA91C2', //lightpurple
-                    "#2F1501", //blackrfeorange
                     "#EA6903", //rfeorange
                     '#665012', //lightred
                     "#007DBA", // mainblue
@@ -951,7 +950,7 @@
                         .attr("width", width * 0.8)
                         .attr("name", "submit")
                         .attr("type", "text")
-                        .attr("placeholder", "Введите имя депутата")
+                        .attr("placeholder", "Депутатты издеңиз")
                         .attr("value", () => (selectedDep != "" ? selectedDep : ""))
                         .on("input", (d) => {
                             selectedDep = main.select("input").property("value");
