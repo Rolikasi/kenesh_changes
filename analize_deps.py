@@ -264,6 +264,16 @@ df_export.to_csv('visual/data/deputs_js.csv', index=False)
 df_finder.sort_values(['party_VI', 'party_V', 'party_IV', 'party_III', 'party_I']).to_csv(
     'export/kenesh_deps.csv', index=False)
 # %%
+translator = {
+    'Самовыдвиженцы': 'Өзүн көрсөткөндөр',
+                'СДПК': 'КСДП',
+                'Партия коммунистов': 'Коммунисттер партиясы',
+                'Онугуу-Прогресс': 'Өнүгүү-Прогресс',
+                'Движение Ата-Журт': 'Ата Журт кыймылы',
+                'другое': 'Башкалар'
+}
+df_export_kg = df_export.replace(translator, regex=True)
+df_export_kg.to_csv('visual/data/deputs_js_kg.csv', index=False)
 # %%
 
 
