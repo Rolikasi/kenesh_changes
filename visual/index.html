@@ -50,7 +50,7 @@
         .step p {
             text-align: center;
             padding: 1rem;
-            font-size: 0.8rem;
+            font-size: 0.9rem;
             background-color: #fff;
             text-align: left;
             border-radius: 5px;
@@ -96,7 +96,7 @@
             z-index: 1000;
             padding: 0.3rem;
             pointer-events: none;
-            font-size: 0.6rem;
+            font-size: 0.7rem;
             font-weight: 500;
             background-color: #fff;
             text-align: left;
@@ -218,6 +218,15 @@
             color: #f4f4f4;
             border-radius: .25rem;
             padding: .125rem .25rem;
+            white-space: nowrap;
+        }
+
+        .highlighted-gray {
+            background-color: #cdcfd1;
+            color: #000000;
+        }
+
+        .nowrap {
             white-space: nowrap;
         }
 
@@ -352,6 +361,24 @@
             }
         }
 
+        input[type='text'],
+        input[type='number'],
+        textarea {
+            font-size: 16px;
+        }
+        ::-webkit-input-placeholder { /* Chrome/Opera/Safari */
+  font-size: 0.8rem;
+}
+::-moz-placeholder { /* Firefox 19+ */
+  font-size: 0.8rem;
+}
+:-ms-input-placeholder { /* IE 10+ */
+  font-size: 0.8rem;
+}
+:-moz-placeholder { /* Firefox 18- */
+  font-size: 0.8rem;
+}
+
         @keyframes animate {
             0% {
                 opacity: 0;
@@ -386,11 +413,10 @@
                         </h1>
                     </div>
                     <div class="intro__dek">
-                        <h1>В Кыргызстане партии объединяют людей не вокруг идеи, а для достижения сиюминутных целей.
-                            Перед каждыми выборами многие политики выбирают ту партию, с которой легче всего попасть в
-                            парламент.
+                        <h1>В Кыргызстане депутаты объединяются не вокруг идеи, а для достижения личных целей.<br>
+                            Поэтому иногда они меняют партии.
                         </h1>
-                        <p>Автор: Эдиль Байызбеков</p>
+                        <p class="nowrap">Автор: Эдиль Байызбеков</p>
                         <div class="arrows">
                             <span></span>
                             <span></span>
@@ -401,13 +427,15 @@
             </figure>
             <article>
                 <div class="step" data-step="1">
-                    <p>Каждый квадрат обозначает отдельного <span class="rect rect-animation"></span> депутата, <span
-                            class="underlined">линии</span> показывают его переходы из созыва в созыв.
+                    <p>Каждый квадрат обозначает отдельного <span class="nowrap"><span
+                                class="rect rect-animation"></span> депутата</span>, линии показывают его переходы из
+                        созыва в созыв.
                         Цвет обозначает принадлежность к партии. Найти конкретного депутата можно в поиске в самом конце
                         инфографики.</p>
                 </div>
                 <div class="step" data-step="2">
-                    <p>Примечание: III созыв был избран по мажоритарной системе, не по партийным спискам. Многие
+                    <p><span class='highlighted highlighted-gray'>Примечание:</span> III созыв был избран по
+                        мажоритарной системе, не по партийным спискам. Многие
                         депутаты баллотировались самостоятельно, но некоторых выдвигали партии. Поэтому мы показали их
                         причастность к партиям.</p>
                 </div>
@@ -417,7 +445,8 @@
                             раз.</span></p>
                 </div>
                 <div class="step" data-step="4">
-                    <p>«Перебежчики». Каждый третий депутат, который избирался повторно, менял партию.</p>
+                    <p>«Перебежчики». Каждый третий депутат, который избирался повторно, <span class="highlighted">менял
+                            партию</span>.</p>
                 </div>
                 <div class="step" data-step="5">
                     <p>«Преданные». Всего 15 депутатов возращались в парламент в составе одной и той же партии.</p>
@@ -437,7 +466,8 @@
                     </p>
                 </div>
                 <div class="step" data-step="9">
-                    <p>Ни один депутат не работал во всех созывах. Чаще всех в парламент избирались Омурбек Текебаев и
+                    <p><span class="highlighted">Ни один</span> депутат не работал во всех созывах. Чаще всех в
+                        парламент избирались Омурбек Текебаев и
                         Иса Омуркулов – по 5 раз.
                     </p>
                 </div>

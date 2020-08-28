@@ -288,12 +288,13 @@ print(find_similar(df_export, 'name'))
 df_name = df_export.drop_duplicates('name')
 # %%
 df_name[df_name.sozyvMisser.isna()]
-
+df_name['uniqueParties'] = df_name.allParties.apply(lambda strings: len(set([x for x in strings.replace('Самовыдвиженцы', '').split(',') if x])))
 print('%_singleparl', len(df_name[df_name.sozyvMisser.isna()]) / len(df_name) * 100)
 print('%_partychanger_from_total', len(df_name[df_name.partyChanger == 1]) / len(df_name) * 100)
 print('%_partychanger_from_stayed', len(df_name[df_name.partyChanger == 1]) / len(df_name[df_name.partyCount > 1]) * 100)
 print('%_dep_missers', len(df_name[df_name.sozyvMisser > 1]) / len(df_name[df_name.partyCount > 1]) * 100)
 print('%_party_constant', len(df_name[df_name.isPartyConstant == 1]) / len(df_name[df_name.partyCount > 1]) * 100)
 print('%_expirienced>3', len(df_name[df_name.partyCount >= 3]) / len(df_name) * 100)
+
 # %%
 # %%
