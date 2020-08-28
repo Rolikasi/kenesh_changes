@@ -27,21 +27,21 @@ d3.csv("data/deputs_js.csv")
       (a, b) => a - b
     );
     var myColor = d3.scaleOrdinal().domain(parties).range([
-      "#00965E", //maingreen
-      "#2F1501", //blackrfeorange
-      "#665012", //mainbrown
-      "#8C4799", //mainpurple
+      "#FFC72C", //mainyellow
       "#5E2A01", //darkrfeorange
-      "#F7C39A", //lightrfeorange
-      "#BDC2C6", //lightrfegray
-      "#FFC72C", // mainyellow
+      "#EDA7AC", //mainpurple
+      "#A4D65E", //darklime
+      "#00965E", // maingreen
+      "#BDC2C6", //lightrfeorange
+      "#F7C39A",
+      '#00acc5', //lightrfegray
       "#D12430", //mainred
       "#5B6770", // rfegray
-      '#A4D65E', //darklime
+      '#8C4799', //mainbrown
       '#BA91C2', //lightpurple
-      '#EDA7AC', //lightred
+      "#2F1501", //blackrfeorange
       "#EA6903", //rfeorange
-      '#3EB1C8', //mainTurquois
+      '#665012', //lightred
       "#007DBA", // mainblue
     ]);
     var topMissers = [62, 72, 468];
@@ -52,6 +52,7 @@ d3.csv("data/deputs_js.csv")
       left: 30,
     };
     maxWidth = 700;
+    year = ['95', '00', '05', '07', '10', '15']
     d3.select('#chart').style('opacity', 0.1).style('pointer-events', 'none');
     function DrawChart(step, callback) {
       width =
@@ -133,7 +134,7 @@ d3.csv("data/deputs_js.csv")
           d3
             .axisLeft(y)
             .tickValues(uniqueSozyv)
-            .tickFormat((d) => d + " Созыв")
+            .tickFormat((d, k) => d + " созыв '" + year[k])
         )
         .attr(
           "transform",
@@ -141,7 +142,7 @@ d3.csv("data/deputs_js.csv")
             "translate( -" +
             rectWidth.toString() +
             " ," +
-            rectsInCol * rectWidth +
+            rectsInCol * (rectWidth + 2) +
             ')'
         )
         .selectAll("text")
@@ -156,6 +157,7 @@ d3.csv("data/deputs_js.csv")
       depsLines.map((d) => {
         for (var i = 1; i < d.length; i++) {
           links.push({
+            isDvijAtajurt: d[i].isDvijAtajurt,
             isPartyConstant: d[i].isPartyConstant,
             idname: d[i].idname,
             partyCount: d[i].partyCount,
@@ -258,16 +260,16 @@ d3.csv("data/deputs_js.csv")
         const handleLegendClick = (d) => {
           selectedParty = d.party ? d.party : d;
           selectedDep = '';
-          handleStepEnter(curResponse);
+          UpdateChart(curResponse.index, svg);
           d3.event.stopPropagation();
         };
         const handleDepClick = (d) => {
           selectedDep = d.name;
-          handleStepEnter(curResponse);
+          UpdateChart(curResponse.index, svg);
         };
         const handleSvgClick = (d) => {
           selectedDep = '';
-          handleStepEnter(curResponse);
+          UpdateChart(curResponse.index, svg);
         }
 
       svg
@@ -372,6 +374,7 @@ d3.csv("data/deputs_js.csv")
     }
 
     function UpdateChart(step, svg) {
+     //console.log('selectedDep', selectedDep)
       if (selectedDep != ''){
         null
       } else {
@@ -384,33 +387,33 @@ d3.csv("data/deputs_js.csv")
         }
         else if (step == 0) {
           return "1";
-        } else if ((step == 1) & (d.sozyvMisser == "")) {
+        } else if ((step == 1) & (d.sozyv == "3")) {
           return "1";
-        } else if ((step == 2) & (d.partyChanger == "1")) {
+        } else if ((step == 2) & (d.sozyvMisser == "")) {
           return "1";
-        }else if ((step == 3) & (d.isPartyConstant == "1")) {
+        } else if ((step == 3) & (d.partyChanger == "1")) {
+          return "1";
+        } else if ((step == 4) & (d.isPartyConstant == "1")) {
           topMissers.map(e => {
             d3.select('.id-' + e).style("stroke-width", "1");
             d3.select(".lines-id-" + e).style("stroke-width", "1").lower()
           })
           return "1";
-        } else if ((step == 4) & (d.sozyvMisser > 1) ) {
+        } else if ((step == 5) & (d.sozyvMisser > 1) ) {
           topMissers.map(e => {
             d3.select('.id-' + e).style("stroke-width", "3");
             d3.select(".lines-id-" + e).style("stroke-width", "3").raise()
           })
           return "1";
-        } else if ((step == 5) & (d.isFemale == "1")) {
+        } else if ((step == 6) & (d.isFemale == "1")) {
           topMissers.map(e => {
             d3.select('.id-' + e).style("stroke-width", "1");
             d3.select(".lines-id-" + e).style("stroke-width", "1").lower()
           })
           return "1";
-        } else if ((step == 6) & (d.partyCount > 2)) {
+        } else if ((step == 7) & (d.partyCount > 2)) {
           return "1";
-        } else if ((step == 7) & (d.partyCount > 4)) {
-          return "1";
-        } else if ((step == 8) & (d.isSDPK == "1")) {
+        } else if ((step == 8) & (d.partyCount > 4)) {
           return "1";
         } else if ((step == 9) & (selectedDep == "")) {
           switch (selectedParty) {
@@ -428,13 +431,13 @@ d3.csv("data/deputs_js.csv")
               return d.isOnuguu == "1" ? "1" : "0.1";
             case "Ар-Намыс":
               return d.isArnamys == "1" ? "1" : "0.1";
-            case "Партия коммунистов КР":
+            case "Партия коммунистов":
               return d.isCommunist == "1" ? "1" : "0.1";
             case "Республика":
               return d.isRepublic == "1" ? "1" : "0.1";
             case "Кыргызстан":
               return d.isKyrgyzstan == "1" ? "1" : "0.1";
-            case "Самовыдвиженец":
+            case "Самовыдвиженцы":
               return d.isIndependent == "1" ? "1" : "0.1";
             case "Ата Мекен":
               return d.isAtameken == "1" ? "1" : "0.1";
@@ -446,6 +449,9 @@ d3.csv("data/deputs_js.csv")
               return d.isNodata == "1" ? "1" : "0.1";
             case "Алга Кыргызстан":
               return d.isAlga == "1" ? "1" : "0.1";
+            case "Движение Ата-Журт":
+              return d.isDvijAtajurt == "1" ? "1" : "0.1";
+
             default:
               return "0.1";
           }
@@ -540,6 +546,9 @@ d3.csv("data/deputs_js.csv")
     }
     // scrollama event handlers
     function handleStepEnter(response) {
+      selectedParty = '';
+      selectedDep = '';
+      //console.log('enter')
       if (response.index == 0) {
         d3.select('#intro').style('pointer-events', 'none').transition().duration(600).style('opacity', 0);
         d3.select('#chart').style('pointer-events', 'auto').transition().duration(600).style('opacity', 1);
@@ -564,6 +573,8 @@ d3.csv("data/deputs_js.csv")
     }
 
     function handleStepExit(response) {
+      //console.log('Exit')
+      selectedParty = '';
       selectedDep = '';
       if (response.index == 0 & response.direction == 'up') {
         d3.select('#intro').style('pointer-events', 'auto').transition().duration(600).style('opacity', 1);
