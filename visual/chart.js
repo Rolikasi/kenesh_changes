@@ -180,7 +180,6 @@ d3.csv("https://raw.githubusercontent.com/Rolikasi/kenesh_changes/master/visual/
             isAdilet: d[i].isAdilet,
             isOther: d[i].isOther,
             //isNewsila: d[i].isNewsila,
-            isNodata: d[i].isNodata,
             party: d[i].party,
             sozyvChange: d[i].sozyv - d[i - 1].sozyv,
             sozyvMisser: d[i].sozyvMisser,
@@ -446,8 +445,6 @@ d3.csv("https://raw.githubusercontent.com/Rolikasi/kenesh_changes/master/visual/
               return d.isAdilet == "1" ? "1" : "0.1";
             case "другое":
               return d.isOther== "1" ? "1" : "0.1";
-            case "Нет данных":
-              return d.isNodata == "1" ? "1" : "0.1";
             case "Алга Кыргызстан":
               return d.isAlga == "1" ? "1" : "0.1";
             case "Движение Ата-Журт":
